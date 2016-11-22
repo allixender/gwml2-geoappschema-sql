@@ -1,0 +1,16 @@
+GW_ChemicalConstituent
+gwChemical
+GW_BiologicConstituent
+gwOrganism
+gwState
+gwConstituent
+gwConstituedOf
+GW_MaterialConstituent
+gwMaterial
+GW_ConstituentRelation
+gwConstituentRelationType
+gwConstituentRelationMechanism
+gwConstitutedOf
+gwConstituent
+mineralName
+lithology

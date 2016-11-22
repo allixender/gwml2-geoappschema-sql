@@ -1,0 +1,28 @@
+<featureType>
+    <id>GW_MonitoringSite</id>
+    <name>GW_MonitoringSite</name>
+    <nativeName>GW_MonitoringSite</nativeName>
+    <namespace>
+        <id>gwml2w_namespace</id>
+    </namespace>
+    <title>GW_MonitoringSite</title>
+    <abstract>Observation well used to watch for the advent of an anticipated condition, generally undesirable, such as the advance of the salt-water front in a coastal area where salt-water encroachment is occurring, or the movement of a pollutant injected into a disposal well. IGH0806</abstract>
+    <srs>EPSG:4326</srs>
+    <latLonBoundingBox>
+		<minx>171</minx><maxx>172</maxx>
+		<miny>-44</miny><maxy>-43</maxy>
+        <crs>EPSG:4326</crs>
+    </latLonBoundingBox>
+    <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+    <enabled>true</enabled>
+    <metadata>
+        <entry key="kml.regionateFeatureLimit">50</entry>
+        <entry key="indexingEnabled">true</entry>
+        <entry key="cachingEnabled">true</entry>
+    </metadata>
+    <store class="dataStore">
+        <id>GW_MonitoringSite_datastore</id>
+    </store>
+    <maxFeatures>0</maxFeatures>
+    <numDecimals>0</numDecimals>
+</featureType>

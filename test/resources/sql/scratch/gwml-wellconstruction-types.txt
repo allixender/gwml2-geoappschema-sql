@@ -1,0 +1,135 @@
+		<documentation>Describes the well drilling and construction details.</documentation>
+	<element  SealingComponent
+			<documentation>A material used for sealing the construction of a borehole or well.</documentation>
+					<element  sealingMaterial
+							<documentation>Material used in the sealing component of a water well. E.g. formation packer, welded ring, shale trap, drive shoe, driven casing, etc.</documentation>
+					<element  sealingType
+							<documentation>Type of sealing. E.g. annular sealing, plugging, etc.</documentation>
+	<element  BoreCollar
+			<documentation>Topmost component of a borehole construction.</documentation>
+					<element name="collarElevation" nillable="true" minOccurs="0" maxOccurs="unbounded">
+							<documentation>The elevation of the bore collar with CRS and UOM.</documentation>
+					<element  collarElevationType
+							<documentation>Type of reference elevation, defined as a feature, e.g. Top of Casing, Ground, etc.</documentation>
+					<element  collarHeadworkType
+							<documentation>Type of assembly bolted to the production casing to control the well, and to provide access and protection (e.g. from flooding, vandalism). Example: raised tube, covers, manhole, 'Gattick Cover' flush, concrete ring, etc. (after Fretwell, et al., 2006).</documentation>
+					<element  collarLocation
+							<documentation>The geographical location of the collar.</documentation>
+					<element  collarSeal
+							<documentation>Relation between a bore collar and its sealing parts.</documentation>
+					<element  bholeDetails
+							<documentation>Characteristics of the borehole associated to a specific collar.</documentation>
+	<element  WellConstruction
+			<documentation>Construction components of the well. These are particularly important when assessing results of pump tests.</documentation>
+	<element  Borehole
+			<documentation>General term for a hole drilled in the ground for various purposes such extraction of a core, release of fluid, etc.</documentation>
+					<element name="bholeMaterialCustodian" nillable="true" minOccurs="0" maxOccurs="unbounded">
+							<documentation>The custodian of the drill core or samples recovered from the borehole.</documentation>
+					<element  bholeCoreInterval
+							<documentation>The geometries for the intervals from which core is extracted along the borehole.</documentation>
+					<element name="bholeDateOfDrilling" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Date of drilling.</documentation>
+					<element name="bholeDriller" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>The organisation responsible for drilling the borehole (as opposed to commissioning the borehole).</documentation>
+					<element  bholeDrillingMethod
+							<documentation>Method of drilling.</documentation>
+					<element  bholeInclinationType
+							<documentation>Type of borehole inclination, e.g. vertical or horizontal.</documentation>
+					<element name="bholeNominalDiameter" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Diameter of the borehole.</documentation>
+					<element name="bholeOperator" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Organisation responsible for commissioning the borehole (as opposed to drilling the borehole).</documentation>
+					<element  bholeStartPoint
+							<documentation>Describes the location of the start of the borehole, e.g. ground surface.</documentation>
+					<element  bholeConstruction
+							<documentation>Relation between a borehole and its construction components.</documentation>
+					<element  bholeHeadworks
+							<documentation>Relation between a borehole and its collar, which represents the top construction component of the borehole.</documentation>
+					<element name="installedEquipment" minOccurs="0" maxOccurs="unbounded">
+							<documentation>Relation designating the equipment installed in a borehole.</documentation>
+	<element  ConstructionComponent
+			<documentation>Elements used in borehole construction.</documentation>
+					<element name="from" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Position of the top (nearest to the surface) of the component</documentation>
+					<element name="to" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Position of the bottom (farthest to the surface) of the component</documentation>
+	<element  Filtration
+			<documentation>Collection of filtration components used to filter a fluid body in a well.</documentation>
+					<element  filterElement
+							<documentation>Relation between a filtration device and its parts.</documentation>
+	<element  Screen
+			<documentation>Collection of components of the water pump screen.</documentation>
+					<element  screenElement
+							<documentation>Relation between a screen and its parts.</documentation>
+	<element  Casing
+			<documentation>Collection of linings of the borehole.</documentation>
+					<element  casingElement
+							<documentation>Relation between a casing and its parts.</documentation>
+	<element  FiltrationComponent
+			<documentation>Material used to filter the fluid in a borehole or well.</documentation>
+					<element name="filterGrainSize" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Size of the particles of the filtration material.</documentation>
+					<element  filterMaterial
+							<documentation>Material used in the filtration device. E.g. gravel, pit run, silica sand, washed sand, crushed rock, etc.</documentation>
+	<element  ScreenComponent
+			<documentation>Component of the well lining where water enters the well.</documentation>
+					<element  screenAttachmentMethod
+							<documentation>Screen attachment method. E.g. telescoped, on casing, on riser pipe, neoprene (K) packer, Lead packer, etc.
+					<element  screenCoating
+							<documentation>Thin outer layer applied to the screen. E.g. galvanized, stainless, copper bearing, low carbon, black, porous, etc.
+					<element  screenForm
+							<documentation>Form of the screen. E.g. slotted casing, perforated casing, bridge slot casing, wire wrap or continuous slot, wire mesh, shutter or louvered, well point, tube, etc.</documentation>
+					<element name="screenHoleSize" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Size of the slots or perforations of the screen.</documentation>
+					<element  screenMaterial
+							<documentation>Material that makes up the screen. E.g. metal, steel, iron, copper, brass, bronze, everdur, Armco metal, veriperm, stone, plastic, PVC, ABS, Fibreglass, etc.</documentation>
+					<element name="screenInternalDiameter" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Internal screen diameter.</documentation>
+					<element name="screenExternalDiameter" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>External screen diameter.</documentation>
+					<element  screenPerforationMethod
+							<documentation>Method used for perforating the screen. E.g. drill, grinder, axe / chisel, machine, saw, torch, other, etc.</documentation>
+					<element  screenFitting
+							<documentation>The screen fitting (from the bottom). E.g. bail, open, plug, tail pipe, washdown, etc.</documentation>
+					<element  screenMake
+							<documentation>Make of the screen.</documentation>
+					<element  screenModel
+							<documentation>Model of the screen.</documentation>
+					<element  screenNumber
+							<documentation>Screen number corresponds to hole size and is given in 0.001 inch. The value is expressed as an alphanumeric code.
+					<element  screenPlacement
+							<documentation>Screen placement method. E.g. bail down, pull back, jetted, washed down, etc.</documentation>
+					<element name="screenWallThickness" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Thickness of the screen walls.</documentation>
+	<element  Sealing
+			<documentation>Collection of materials that prevent undesirable elements from entering the borehole.</documentation>
+					<element  sealingGroutingPlacementMethod
+							<documentation>Method of placing the sealing grouting.</documentation>
+					<element  casingLeft
+							<documentation>Casing left after plugging.</documentation>
+					<element  casingSlit
+							<documentation>Casing slit opposing water bearing zones before plugging.</documentation>
+					<element  sealingElement
+							<documentation>Relation between a seal and its parts.</documentation>
+	<element  CasingComponent
+			<documentation>A single part of a well casing.</documentation>
+					<element  casingMaterial
+							<documentation>Material in which the casing is made. Can be metal, steel, iron, concrete, wood, brick, plastic, teflon, PVC, ABS, fibre glass, asbestos cement, unknown, other. Groundwater Data Management Guidelines, Environment Canada, Dec. 1991.</documentation>
+					<element  casingCoating
+							<documentation>Coating applied to the casing. E.g. galvanized, stainless, mild, low carbon, copper bearing, black, etc.
+					<element  casingForm
+							<documentation>Form of material used in the casing. E.g. curbing, cribbing, corrugated culvert, hose, etc. Groundwater Data Management Guidelines, Environment Canada, Dec. 1991.</documentation>
+					<element name="casingInternalDiameter" minOccurs="0" maxOccurs="1">
+							<documentation>Internal diameter of the casing.</documentation>
+					<element name="casingExternalDiameter" minOccurs="0" maxOccurs="1">
+							<documentation>External diameter of the casing.</documentation>
+					<element name="casingWallThickness" minOccurs="0" maxOccurs="1">
+							<documentation>Thickness of the wall of the casing.</documentation>
+	<element  Equipment
+			<documentation>Equipment installed in a borehole (like a pump or any other device).</documentation>
+			<element  characteristics
+					<documentation>General characteristics of the equipment.</documentation>
+			<element  equipmentType
+					<documentation>Type of equipment.</documentation>
+			<element  installationDate
+					<documentation>Date of installation of the equipment.</documentation>

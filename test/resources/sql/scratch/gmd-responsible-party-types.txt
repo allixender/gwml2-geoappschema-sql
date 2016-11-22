@@ -1,0 +1,255 @@
+<xs:complexType name="CI_ResponsibleParty_Type">
+  <xs:annotation>
+    <xs:documentation>Identification of, and means of communication with, person(s) and organisations associated with the dataset</xs:documentation>
+  </xs:annotation>
+  <xs:complexContent>
+    <xs:extension base="gco:AbstractObject_Type">
+      <xs:sequence>
+        <xs:element name="individualName" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="organisationName" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="positionName" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="contactInfo" type="gmd:CI_Contact_PropertyType" minOccurs="0"/>
+        <xs:element name="role" type="gmd:CI_RoleCode_PropertyType"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+<!-- ........................................................................ -->
+<xs:element name="CI_ResponsibleParty" type="gmd:CI_ResponsibleParty_Type"/>
+
+<xs:complexType name="CI_Contact_Type">
+  <xs:annotation>
+    <xs:documentation>Information required enabling contact with the  responsible person and/or organisation</xs:documentation>
+  </xs:annotation>
+  <xs:complexContent>
+    <xs:extension base="gco:AbstractObject_Type">
+      <xs:sequence>
+        <xs:element name="phone" type="gmd:CI_Telephone_PropertyType" minOccurs="0"/>
+        <xs:element name="address" type="gmd:CI_Address_PropertyType" minOccurs="0"/>
+        <xs:element name="onlineResource" type="gmd:CI_OnlineResource_PropertyType" minOccurs="0"/>
+        <xs:element name="hoursOfService" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="contactInstructions" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+<!-- ........................................................................ -->
+<xs:element name="CI_Contact" type="gmd:CI_Contact_Type"/>
+
+<xs:complexType name="CI_OnlineResource_Type">
+  <xs:annotation>
+    <xs:documentation>Information about online sources from which the dataset, specification, or community profile name and extended metadata elements can be obtained.</xs:documentation>
+  </xs:annotation>
+  <xs:complexContent>
+    <xs:extension base="gco:AbstractObject_Type">
+      <xs:sequence>
+        <xs:element name="linkage" type="gmd:URL_PropertyType"/>
+        <xs:element name="protocol" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="applicationProfile" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="name" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="description" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="function" type="gmd:CI_OnLineFunctionCode_PropertyType" minOccurs="0"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+<!-- ........................................................................ -->
+<xs:element name="CI_OnlineResource" type="gmd:CI_OnlineResource_Type"/>
+
+
+<xs:complexType name="URL_PropertyType">
+  <xs:sequence minOccurs="0">
+    <xs:element ref="gmd:URL"/>
+  </xs:sequence>
+  <xs:attribute ref="gco:nilReason"/>
+</xs:complexType>
+<!-- ........................................................................ -->
+<xs:element name="URL" type="xs:anyURI"/>
+
+<!-- =========================================================================== -->
+<xs:complexType name="CI_Telephone_Type">
+  <xs:annotation>
+    <xs:documentation>Telephone numbers for contacting the responsible individual or organisation</xs:documentation>
+  </xs:annotation>
+  <xs:complexContent>
+    <xs:extension base="gco:AbstractObject_Type">
+      <xs:sequence>
+        <xs:element name="voice" type="gco:CharacterString_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="facsimile" type="gco:CharacterString_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+<!-- ........................................................................ -->
+<xs:element name="CI_Telephone" type="gmd:CI_Telephone_Type"/>
+<!-- ........................................................................ -->
+<xs:complexType name="CI_Telephone_PropertyType">
+  <xs:sequence minOccurs="0">
+    <xs:element ref="gmd:CI_Telephone"/>
+  </xs:sequence>
+  <xs:attributeGroup ref="gco:ObjectReference"/>
+  <xs:attribute ref="gco:nilReason"/>
+</xs:complexType>
+
+<!-- =========================================================================== -->
+<xs:complexType name="CI_Address_Type">
+  <xs:annotation>
+    <xs:documentation>Location of the responsible individual or organisation</xs:documentation>
+  </xs:annotation>
+  <xs:complexContent>
+    <xs:extension base="gco:AbstractObject_Type">
+      <xs:sequence>
+        <xs:element name="deliveryPoint" type="gco:CharacterString_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="city" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="administrativeArea" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="postalCode" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="country" type="gco:CharacterString_PropertyType" minOccurs="0"/>
+        <xs:element name="electronicMailAddress" type="gco:CharacterString_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+<!-- ........................................................................ -->
+<xs:element name="CI_Address" type="gmd:CI_Address_Type"/>
+<!-- ........................................................................ -->
+<xs:complexType name="CI_Address_PropertyType">
+  <xs:sequence minOccurs="0">
+    <xs:element ref="gmd:CI_Address"/>
+  </xs:sequence>
+  <xs:attributeGroup ref="gco:ObjectReference"/>
+  <xs:attribute ref="gco:nilReason"/>
+</xs:complexType>
+<!-- =========================================================================== -->
+
+http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml
+
+http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml
+
+http://asdd.ga.gov.au/asdd/profileinfo/
+
+
+<!-- === CI_OnLineFunctionCode === -->
+<codelistItem>
+<CodeListDictionary gml:id="CI_OnLineFunctionCode">
+<gml:description>function performed by the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">CI_OnLineFunctionCode</gml:identifier>
+<codeEntry>
+<CodeDefinition gml:id="CI_OnLineFunctionCode_download">
+<gml:description>
+online instructions for transferring data from one storage device or system to another
+</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">download</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_OnLineFunctionCode_information">
+<gml:description>online information about the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">information</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_OnLineFunctionCode_offlineAccess">
+<gml:description>
+online instructions for requesting the resource from the provider
+</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">offlineAccess</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_OnLineFunctionCode_order">
+<gml:description>online order process for obtening the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">order</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_OnLineFunctionCode_search">
+<gml:description>
+online search interface for seeking out information about the resource
+</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">search</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+</CodeListDictionary>
+</codelistItem>
+
+<!-- === CI_RoleCode === -->
+<codelistItem>
+<CodeListDictionary gml:id="CI_RoleCode">
+<gml:description>function performed by the responsible party</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">CI_RoleCode</gml:identifier>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_resourceProvider">
+<gml:description>party that supplies the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">resourceProvider</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_custodian">
+<gml:description>
+party that accepts accountability and responsibility for the data and ensures appropriate care and maintenance of the resource
+</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">custodian</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_owner">
+<gml:description>party that owns the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">owner</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_user">
+<gml:description>party who uses the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">user</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_distributor">
+<gml:description>party who distributes the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">distributor</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_originator">
+<gml:description>party who created the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">originator</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_pointOfContact">
+<gml:description>
+party who can be contacted for acquiring knowledge about or acquisition of the resource
+</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">pointOfContact</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_principalInvestigator">
+<gml:description>
+key party responsible for gathering information and conducting research
+</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">principalInvestigator</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_processor">
+<gml:description>
+party wha has processed the data in a manner such that the resource has been modified
+</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">processor</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_publisher">
+<gml:description>party who published the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">publisher</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+<codeEntry>
+<CodeDefinition gml:id="CI_RoleCode_author">
+<gml:description>party who authored the resource</gml:description>
+<gml:identifier codeSpace="ISOTC211/19115">author</gml:identifier>
+</CodeDefinition>
+</codeEntry>
+</CodeListDictionary>
+</codelistItem>

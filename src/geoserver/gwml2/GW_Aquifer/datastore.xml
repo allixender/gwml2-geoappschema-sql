@@ -1,0 +1,14 @@
+<dataStore>
+  <id>GW_Aquifer_datastore</id>
+  <name>GW_Aquifer</name>
+  <enabled>true</enabled>
+  <workspace>
+    <id>gwml2_workspace</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="dbtype">app-schema</entry>
+    <entry key="url">file:workspaces/gwml2/GW_Aquifer/GW_Aquifer.xml</entry>
+    <entry key="namespace">http://www.opengis.net/gwml-main/2.2</entry>
+  </connectionParameters>
+  <__default>false</__default>
+</dataStore>

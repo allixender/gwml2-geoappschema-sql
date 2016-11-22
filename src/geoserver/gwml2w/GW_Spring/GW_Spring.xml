@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<as:AppSchemaDataAccess xmlns:as="http://www.geotools.org/app-schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.geotools.org/app-schema AppSchemaDataAccess.xsd">
+	<namespaces>
+		<Namespace><prefix>gml</prefix><uri>http://www.opengis.net/gml/3.2</uri></Namespace>
+		<Namespace><prefix>om</prefix><uri>http://www.opengis.net/om/2.0</uri></Namespace>
+		<Namespace><prefix>sams</prefix><uri>http://www.opengis.net/samplingSpatial/2.0</uri></Namespace>
+
+		<Namespace><prefix>gmd</prefix><uri>http://www.isotc211.org/2005/gmd</uri></Namespace>
+		<Namespace><prefix>gwml2</prefix><uri>http://www.opengis.net/gwml-main/2.1</uri></Namespace>
+		<Namespace><prefix>gwml2w</prefix><uri>http://www.opengis.net/gwml-well/2.1</uri></Namespace>
+		<Namespace><prefix>swe</prefix><uri>http://www.opengis.net/swe/2.0</uri></Namespace>
+		<Namespace><prefix>gsml</prefix><uri>http://xmlns.geosciml.org/GeoSciML-Core/3.2</uri></Namespace>
+		<Namespace><prefix>gwml2wc</prefix><uri>http://www.opengis.net/gwml-wellconstruction/2.1</uri></Namespace>
+
+		<Namespace><prefix>xlink</prefix><uri>http://www.w3.org/1999/xlink</uri></Namespace>
+		<Namespace><prefix>xsi</prefix><uri>http://www.w3.org/2001/XMLSchema-instance</uri></Namespace>
+
+	</namespaces>
+	<sourceDataStores>
+		<DataStore>
+			<id>shapefile</id>
+			<parameters>
+				<Parameter>
+					<name>url</name>
+					<value>file:/home/geoserver/geo-app-schema-complex-ws/shared-data/horowhenua-springs/horowhenua-springs.shp</value>
+				</Parameter>
+				<Parameter>
+					<name>memory mapped buffer</name>
+					<value>false</value>
+				</Parameter>
+				<Parameter>
+					<name>create spatial index</name>
+					<value>true</value>
+				</Parameter>
+				<Parameter>
+					<name>charset</name>
+					<value>ISO-8859-1</value>
+				</Parameter>
+			</parameters>
+		</DataStore>
+    <!--
+    <DataStore>
+      <id>datastore</id>
+      <parameters>
+          <Parameter>
+              <name>dbtype</name>
+              <value>postgisng</value>
+          </Parameter>
+          <Parameter>
+              <name>jndiReferenceName</name>
+              <value>${gwml2.jndi}</value>
+          </Parameter>
+      </parameters>
+  </DataStore>
+  -->
+	</sourceDataStores>
+	<targetTypes>
+		<FeatureType>
+		  <schemaUri>http://ngwd-bdnes.cits.nrcan.gc.ca/service/gwml/schemas/2.1/gwml2-well.xsd</schemaUri>
+		</FeatureType>
+	</targetTypes>
+	<typeMappings>
+		<FeatureTypeMapping>
+			<sourceDataStore>shapefile</sourceDataStore>
+			<sourceType>horowhenua-springs</sourceType>
+			<targetElement>gwml2w:GW_Spring</targetElement>
+			<attributeMappings>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:GW_Spring</targetAttribute>
+					<idExpression><OCQL>strConcat('horo.spring.', Id)</OCQL></idExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringName</targetAttribute>
+					<sourceExpression><OCQL>strConcat(Type, Id)</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gml:identifier</targetAttribute>
+					<sourceExpression><OCQL>strConcat(Type, Id)</OCQL></sourceExpression>
+					<ClientProperty><name>codeSpace</name><value>'${gns.codespace}'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringReferenceElevation</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringType</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'missing'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringCauseType</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'missing'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringGeology</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'missing'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringBody</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringUnit</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringConstruction</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringPersistence</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'http://somevocab.org/gwml/2.0/notes'</value></ClientProperty>
+					<ClientProperty><name>xlink:title</name><value>Comment</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringLicence</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'missing'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:gwSpringLocation</targetAttribute>
+					<ClientProperty><name>srsName</name><value>strConcat('${uri.crs}', '4326')</value></ClientProperty>
+					<!--=== Geoserver should have automagically detected that the geometry was a point, but didn't - hence explicit ===
+                        === sams:shape/gml:Point target. May be something awry with my PostGIS 2.0 set-up (?).                      ===-->
+					<idExpression><OCQL>strConcat('loc.', Id)</OCQL></idExpression>
+					<sourceExpression><OCQL>the_geom</OCQL></sourceExpression>
+				</AttributeMapping>
+			</attributeMappings>
+		</FeatureTypeMapping>
+		<!-- here om observation things -->
+	</typeMappings>
+</as:AppSchemaDataAccess>

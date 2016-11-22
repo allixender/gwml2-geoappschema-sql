@@ -1,0 +1,28 @@
+<featureType>
+    <id>GW_ManagementArea</id>
+    <name>GW_ManagementArea</name>
+    <nativeName>GW_ManagementArea</nativeName>
+    <namespace>
+        <id>gwml2_namespace</id>
+    </namespace>
+    <title>GW_ManagementArea</title>
+    <abstract>Management Restriction Or Regulation Zone - need more precise definition (taken from wiki discussion)</abstract>
+    <srs>EPSG:4326</srs>
+    <latLonBoundingBox>
+		<minx>167.508</minx><maxx>178.507</maxx>
+		<miny>-46.6749</miny><maxy>-34.7009</maxy>
+        <crs>EPSG:4326</crs>
+    </latLonBoundingBox>
+    <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+    <enabled>true</enabled>
+    <metadata>
+        <entry key="kml.regionateFeatureLimit">50</entry>
+        <entry key="indexingEnabled">true</entry>
+        <entry key="cachingEnabled">true</entry>
+    </metadata>
+    <store class="dataStore">
+        <id>GW_ManagementArea_datastore</id>
+    </store>
+    <maxFeatures>0</maxFeatures>
+    <numDecimals>0</numDecimals>
+</featureType>

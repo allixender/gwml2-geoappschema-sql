@@ -1,0 +1,13 @@
+<DataStore>
+    <id>postgisng_gwml2</id>
+    <parameters>
+        <Parameter>
+            <name>dbtype</name>
+            <value>postgisng</value>
+        </Parameter>
+        <Parameter>
+            <name>jndiReferenceName</name>
+            <value>jdbc/postgisng_gwml2</value>
+        </Parameter>
+    </parameters>
+</DataStore>

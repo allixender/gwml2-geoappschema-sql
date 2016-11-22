@@ -1,0 +1,14 @@
+<dataStore>
+  <id>GW_Spring_datastore</id>
+  <name>GW_Spring</name>
+  <enabled>true</enabled>
+  <workspace>
+    <id>gwml2w_workspace</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="dbtype">app-schema</entry>
+    <entry key="url">file:workspaces/gwml2w/GW_Spring/GW_Spring.xml</entry>
+    <entry key="namespace">http://www.opengis.net/gwml-well/2.1</entry>
+  </connectionParameters>
+  <__default>false</__default>
+</dataStore>

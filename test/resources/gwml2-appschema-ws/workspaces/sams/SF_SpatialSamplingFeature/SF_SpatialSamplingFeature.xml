@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<as:AppSchemaDataAccess xmlns:as="http://www.geotools.org/app-schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.geotools.org/app-schema AppSchemaDataAccess.xsd">
+	<namespaces>
+		<Namespace>
+			<prefix>gml</prefix>
+			<uri>http://www.opengis.net/gml/3.2</uri>
+		</Namespace>
+		<Namespace>
+			<prefix>om</prefix>
+			<uri>http://www.opengis.net/om/2.0</uri>
+		</Namespace>
+		<Namespace>
+			<prefix>sam</prefix>
+			<uri>http://www.opengis.net/sampling/2.0</uri>
+		</Namespace>
+		<Namespace>
+			<prefix>sams</prefix>
+			<uri>http://www.opengis.net/samplingSpatial/2.0</uri>
+		</Namespace>
+		<Namespace>
+			<prefix>xlink</prefix>
+			<uri>http://www.w3.org/1999/xlink</uri>
+		</Namespace>
+		<Namespace>
+			<prefix>xsi</prefix>
+			<uri>http://www.w3.org/2001/XMLSchema-instance</uri>
+		</Namespace>
+		<Namespace><prefix>gmd</prefix><uri>http://www.isotc211.org/2005/gmd</uri></Namespace>
+		<Namespace><prefix>gco</prefix><uri>http://www.isotc211.org/2005/gco</uri></Namespace>
+	</namespaces>
+	<includedTypes>
+		<Include>OM_Observation_mapping.xml</Include>
+	</includedTypes>
+	<sourceDataStores>
+		<DataStore>
+			<id>shapefile</id>
+			<parameters>
+				<Parameter>
+					<name>url</name>
+					<value>file:/home/geoserver/geo-app-schema-complex-ws/shared-data/ngmp-locations/ngmp-locations.shp</value>
+				</Parameter>
+				<Parameter>
+					<name>memory mapped buffer</name>
+					<value>false</value>
+				</Parameter>
+				<Parameter>
+					<name>create spatial index</name>
+					<value>true</value>
+				</Parameter>
+				<Parameter>
+					<name>charset</name>
+					<value>ISO-8859-1</value>
+				</Parameter>
+			</parameters>
+		</DataStore>
+    <!--
+    <DataStore>
+      <id>datastore</id>
+      <parameters>
+          <Parameter>
+              <name>dbtype</name>
+              <value>postgisng</value>
+          </Parameter>
+          <Parameter>
+              <name>jndiReferenceName</name>
+              <value>${gwml2.jndi}</value>
+          </Parameter>
+      </parameters>
+  </DataStore>
+  -->
+	</sourceDataStores>
+	<targetTypes>
+		<FeatureType>
+			<schemaUri>http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/om/2.0/observation.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/gml/3.2.1/gml.xsd</schemaUri>
+			<schemaUri>http://www.isotc211.org/2005/gco/gco.xsd</schemaUri>
+			<schemaUri>http://www.isotc211.org/2005/gmd/gmd.xsd</schemaUri>
+		</FeatureType>
+	</targetTypes>
+	<typeMappings>
+		<FeatureTypeMapping>
+			<sourceDataStore>shapefile</sourceDataStore>
+			<sourceType>ngmp-locations</sourceType>
+			<targetElement>sams:SF_SpatialSamplingFeature</targetElement>
+			<attributeMappings>
+				<AttributeMapping>
+					<targetAttribute>sams:SF_SpatialSamplingFeature</targetAttribute>
+					<idExpression>
+						<OCQL>strConcat('ngmp.', feature_pu)</OCQL>
+					</idExpression>
+				</AttributeMapping>
+
+				<AttributeMapping>
+					<targetAttribute>gml:description</targetAttribute>
+					<sourceExpression>
+						<OCQL>descr</OCQL>
+					</sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gml:identifier</targetAttribute>
+					<sourceExpression>
+						<OCQL>strConcat('${vocab.uriprefix}/feature/', feature_pu)</OCQL>
+					</sourceExpression>
+					<ClientProperty>
+						<name>codeSpace</name>
+						<value>'${gns.codespace}'</value>
+					</ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gml:name</targetAttribute>
+					<sourceExpression>
+						<OCQL>name</OCQL>
+					</sourceExpression>
+					<ClientProperty>
+						<name>codeSpace</name>
+						<value>'${gns.codespace}'</value>
+					</ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>sam:type</targetAttribute>
+					<ClientProperty>
+						<name>xlink:href</name>
+						<value>'${sf.pointtype}'</value>
+					</ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>sam:sampledFeature</targetAttribute>
+					<ClientProperty>
+						<name>xsi:nil</name>
+						<value>'true'</value>
+					</ClientProperty>
+					<ClientProperty>
+						<name>nilReason</name>
+						<value>'missing'</value>
+					</ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>sam:relatedObservation</targetAttribute>
+					<sourceExpression>
+						<OCQL>strConcat('${vocab.uriprefix}/feature/', feature_pu)</OCQL>
+						<linkElement>_om_OM_Observation</linkElement>
+						<linkField>FEATURE_LINK</linkField>
+					</sourceExpression>
+					<isMultiple>true</isMultiple>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>sams:shape/gml:Point</targetAttribute>
+					<!-- <targetAttribute>sams:shape</targetAttribute> -->
+					<ClientProperty>
+						<name>srsName</name>
+						<value>strConcat('${uri.crs}', '4326')</value>
+					</ClientProperty>
+					<!--=== Geoserver should have automagically detected that the geometry was a point, but didn't - hence explicit ===
+                        === sams:shape/gml:Point target. May be something awry with my PostGIS 2.0 set-up (?).                      ===-->
+					<idExpression>
+						<OCQL>strConcat('sams.shape.', feature_pu)</OCQL>
+					</idExpression>
+					<sourceExpression>
+						<OCQL>the_geom</OCQL>
+					</sourceExpression>
+				</AttributeMapping>
+			</attributeMappings>
+		</FeatureTypeMapping>
+
+	</typeMappings>
+</as:AppSchemaDataAccess>

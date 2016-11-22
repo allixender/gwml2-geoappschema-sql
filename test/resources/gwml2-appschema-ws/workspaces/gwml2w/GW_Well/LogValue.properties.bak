@@ -1,0 +1,5 @@
+_=ID:String,WELLID:String,FROMDEPTH:Float,TODEPTH:Float,LITH:String,LITHDRILLER:String,LITHPROCESSED:String
+id.1=id.1|352271|0|0.3|Top Soil|Top soil and sand|topsoil and sand
+id.2=id.2|352271|0.3|2.4|Peat|Peat|organic
+id.3=id.3|352311|0|39.65|Unspecified|Unknown|unknown
+id.4=id.4|352311|39.65|45.75|Sand|Grey loose sand|grey loose sand, water bearing

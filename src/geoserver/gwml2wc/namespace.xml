@@ -1,0 +1,5 @@
+<namespace>
+    <id>gwml2wc_namespace</id>
+    <prefix>gwml2wc</prefix>
+    <uri>http://www.opengis.net/gwml-wellconstruction/2.1</uri>
+</namespace>

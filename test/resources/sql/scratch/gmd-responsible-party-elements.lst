@@ -1,0 +1,33 @@
+<xs:element  CI_ResponsibleParty
+        <xs:element  individualName
+        <xs:element  organisationName
+        <xs:element  positionName
+        <xs:element  contactInfo
+        <xs:element  role
+
+<xs:element  CI_Contact
+        <xs:element  phone
+        <xs:element  address
+        <xs:element  onlineResource
+        <xs:element  hoursOfService
+        <xs:element  contactInstructions
+
+<xs:element  CI_OnlineResource
+        <xs:element  linkage
+        <xs:element  protocol
+        <xs:element  applicationProfile
+        <xs:element  name
+        <xs:element  description
+        <xs:element  function
+
+<xs:element  CI_Telephone
+        <xs:element  voice
+        <xs:element  facsimile
+
+<xs:element  CI_Address
+        <xs:element  deliveryPoint
+        <xs:element  city
+        <xs:element  administrativeArea
+        <xs:element  postalCode
+        <xs:element  country
+        <xs:element  electronicMailAddress

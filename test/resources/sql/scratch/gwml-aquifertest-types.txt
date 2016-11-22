@@ -1,0 +1,3 @@
+		<documentation>Describes aquifer tests, such as pump test, tracing or any other procedures aimed at estimating groundwater or aquifer properties.</documentation>
+	<element  GW_AquiferTest
+			<documentation>Signature class representing a aquifer test (or pump test). It describes the inputs, outputs, and methods associated with such a test.</documentation>

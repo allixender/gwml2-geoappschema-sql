@@ -1,0 +1,5 @@
+<namespace>
+    <id>gwml2at_namespace</id>
+    <prefix>gwml2at</prefix>
+    <uri>http://www.opengis.net/gwml-aquifertest/2.1</uri>
+</namespace>

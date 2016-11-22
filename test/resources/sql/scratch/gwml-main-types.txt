@@ -1,0 +1,195 @@
+cat gwml2-main.xsd | egrep "element name=|<documentation>" | sed "s/\(.*\)name=\"\(.*\)\"\ type=.*/\1\ \2/g"
+                <documentation>Logical Model for GroundWaterML version 2.0 containing the core elements required for groundwater data. Other GWML2 application schema import this schema.</documentation>
+        <element  GW_Basin
+                        <documentation>A large hydrogeologically defined body of ground typically consisting of hydraulically connected hydrogeological units, whose waters are flowing to a common or multiple outlets, and which is delimited by a groundwater divide.</documentation>
+                                        <element  gwDivide
+                                                        <documentation>Line on a water table or piezometric surface on either side of which the groundwater flow diverges. IGH0556.</documentation>
+                                        <element  gwBasinUnit
+                                                        <documentation>Relates hydrogeologic units and the basins that contain them, in full or part.</documentation>
+        <element  GW_AquiferUnit
+                        <documentation>Denotes aquifer-related hydrogeologic units: aquifer systems, aquifers, or confining beds.</documentation>
+                                        <element  gwAquiferSystem
+                                                        <documentation>Relates an aquifer system to an aquifer unit </documentation>
+        <element  GW_ManagementArea
+                        <documentation>The GW_ManagementArea class defines properties associated with areas identified for management purposes. These can be delineated by human factors such as policy or regulation concerns, as well as domain (in this case hydrogeologic or hydrologic) concerns. The management area does not necessarily align exactly with the associated hydrogeologic feature boundaries.
+                                        <element name="gwAreaCompetentAuthority" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                                                        <documentation>Description of the organisation(s) responsible for managing, restricting or regulating measures or activities within the management area.</documentation>
+                                        <element  gwAreaDesignationPeriod
+                                                        <documentation>Time period defining when the management area was legally designated or became effective in the real world.</documentation>
+                                        <element  gwAreaSpecialisedAreaType
+                                                        <documentation>Additional classification value which further specialises the gwAreaType.</documentation>
+                                        <element  gwAreaEnvironmentalDomain
+                                                        <documentation>Classification of the environment domain(s) for which, through the establishment of the management area, certain environmental objectives shall be reached.
+                                        <element  gwAreaShape
+                                                        <documentation>Geometric shape and position of management area.</documentation>
+                                        <element  gwAreaType
+                                                        <documentation>High level classification defining the type of management area (e.g. restricted use zone, irrigation area, consumption area, etc.)
+                                        <element  gwAreaFeature
+                                                        <documentation>Other features that are associated with the management area (watershed, ecological zones, etc) that are not hydrogeologicUnits.</documentation>
+                                        <element  gwAreaBody
+                                                        <documentation>Relates a management area to the fluid bodies contained within the area. As with units, the spatial boundaries of management areas do not necessarily coincide with the spatial boundaries of fluid bodies.</documentation>
+                                        <element name="gwAreaWaterBudget" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                                                        <documentation>Water budget associated with the management area.</documentation>
+                                        <element  gwAreaYield
+                                                        <documentation>Yield associated with the management area.</documentation>
+                                        <element  relatedManagementArea
+                                                        <documentation>Relates a management area part to a management area whole.</documentation>
+                                        <element  gwManagedUnit
+                                                        <documentation>Relates a hydrogeologic unit to a groundwater management area</documentation>
+                                        <element  documentation
+                                                        <documentation>It serves as the base class to unambiguously associate legislative and reference documentation to the management area.
+        <element  GW_HydrogeoVoid
+                        <documentation>Voids represent the spaces inside (hosted by) a unit or its material. E.g. the pores in an aquifer, or in the sandstone of an aquifer. Voids are hosted by a container (e.g. an aquifer), and can contain water bodies. Voids are differentiated from 'porosity' in that porosity is the proportion of void volume to total volume (i.e. container + voids), while voids are the spaces themselves. Their delineation as a distinct entity is necessary, for example, to capture the volume of fractures in an aquifer.</documentation>
+                                        <element name="gwVoidHostMaterial" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                                                        <documentation>The material that hosts the void, if specified. Note voids can be hosted by a unit (an aquifer) or its material (e.g. sandstone).</documentation>
+                                        <element name="gwVoidMetadata" nillable="true" minOccurs="0" maxOccurs="1">
+                                                        <documentation>Metadata for the void.</documentation>
+                                        <element  gwVoidShape
+                                                        <documentation>Shape and position of the void.</documentation>
+                                        <element  gwVoidType
+                                                        <documentation>Type of void e.g. fractured, intergranular, etc.</documentation>
+                                        <element  gwVoidVolume
+                                                        <documentation>Volume of the void.</documentation>
+                                        <element  gwVoidFluidBody
+                                                        <documentation>Relates to a fluid body found in a hydrogeologic void</documentation>
+                                        <element  gwVoidUnit
+                                                        <documentation>Relates to the hydrogeologic unit hosting the void</documentation>
+                                        <element  gwVoidPartOf
+                                                        <documentation>Relates which voids are parts of a whole void.</documentation>
+                                        <element  gwPartOfVoid
+                                                        <documentation>Relates a void part to a whole void.</documentation>
+        <element  GW_FluidBody
+                        <documentation>A distinct body of some fluid (liquid, gas) that fills the voids of a container such as an aquifer, system of aquifers, water well, etc; in hydrogeology this body is usually constituted from groundwater, but the model allows for other types of fillers e.g. petroleum.</documentation>
+                                        <element  gwBodyFlow
+                                                        <documentation>Flows associated with the fluid body.</documentation>
+                                        <element name="gwBodyMetadata" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                                                        <documentation>Metadata about the fluid body.</documentation>
+                                        <element  gwBodyProperty
+                                                        <documentation>Properties that characterize the groundwater body.
+                                        <element  gwBodyQuality
+                                                        <documentation>Categorical assessment of fluid quality: e.g. saline, brackish, fresh, turbide, sulfurous, mixed, ... 1000-3000mg/l tds, etc.
+                                        <element  gwBodyShape
+                                                        <documentation>Shape and position of the groundwater body.</documentation>
+                                        <element  gwBodyVolume
+                                                        <documentation>Description of the volume/quantity of water present in a container at a certain time.</documentation>
+                                        <element  gwBodyVulnerability
+                                                        <documentation>The susceptibility of the fluid body to specific threats such as surface contamination, etc.</documentation>
+                                        <element  gwFluidBodyUnit
+                                                        <documentation>Relates to the hydrogeologic unit containing the fluid body.</documentation>
+                                        <element  gwFluidBodyVoid
+                                                        <documentation>Relates a fluid body to a void.</documentation>
+                                        <element  gwBodyPartOf
+                                                        <documentation>Relates which body are parts of a whole body.</documentation>
+                                        <element  gwBodySurface
+                                                        <documentation>Relates a fluid body to a surface hosted by the body.</documentation>
+                                        <element  gwBodyConstituent
+                                                        <documentation>Relates a fluid body to typical background constituent values for that body.</documentation>
+                                        <element  gwBackgroundConstituent
+                                                        <documentation>Relates a fluid body to its chemical, biologic, or material constituents, and specifies the nature of the mixture of the constituent within the body, e.g. solution, suspension.</documentation>
+                                        <element  gwPartOfBody
+                                                        <documentation>Relates a body part to a whole body.</documentation>
+        <element  GW_BodySurface
+                        <documentation>A surface on a body of groundwater, for a local or regional area, e.g. piezometric, potentiometric, water table, salt wedge, etc.</documentation>
+                                        <element  gwSurfaceShapeMetadata
+                                                        <documentation>Date, time, method, etc., of the observation of the surface.</documentation>
+                                        <element  gwSurfaceShape
+                                                        <documentation>Geometry and position of the surface.</documentation>
+                                        <element  gwSurfaceType
+                                                        <documentation>Type of groundwater body surface, e.g. piezometric, potentiometric, water table, salt wedge, etc.</documentation>
+                                        <element  gwSurfaceDivide
+                                                        <documentation>Relates to a groundwater divide linked to the fluid body surface.</documentation>
+                                        <element  gwSurfaceBody
+                                                        <documentation>Relates to the fluid body bounded by the surface.</documentation>
+        <element  GW_HydrogeoUnit
+                        <documentation>Any soil or rock unit or zone which by virtue of its hydraulic properties has a distinct influence on the storage or movement of groundwater (after ANS, 1980).</documentation>
+                                        <element  gwUnitProperty
+                                                        <documentation>Additional properties of an hydrogeologic unit not included in the model.</documentation>
+                                        <element  gwUnitMedia
+                                                        <documentation>Type of material or, by proximity, type of voids (e.g. granular, fracture, karstic, or mixed).</documentation>
+                                        <element name="gwUnitWaterBudget" nillable="true" minOccurs="0" maxOccurs="1">
+                                                        <documentation>Sum of water input and output of a hydrogeologic unit, at a particular point in time, with a description of inflows and outflows.</documentation>
+                                        <element  gwUnitRecharge
+                                                        <documentation>Volumetric flow rate of water that enters an hydrogeologic unit, at potentially multiple locations.</documentation>
+                                        <element  gwUnitDischarge
+                                                        <documentation>Volumetric flow rate of water that goes out of an hydrogeologic unit, at potentially multiple locations.</documentation>
+                                        <element  gwUnitVulnerability
+                                                        <documentation>The susceptibility of the aquifer to specific threats such as various physical events (earthquakes), human processes (depletion), etc.</documentation>
+                                        <element  gwUnitFluidBody
+                                                        <documentation>Relates to the fluid body contained by the hydrogeologic unit.</documentation>
+                                        <element  gwUnitVoid
+                                                        <documentation>Relates hydrogeologic units with a void hosted by the units.</documentation>
+                                        <element  gwManagementArea
+                                                        <documentation>Relates to the management area(s) linked to a hydrogeologic unit.</documentation>
+        <element  GW_Aquifer
+                        <documentation>A body of ground that contains, potentially contains or potentially contained sufficient saturated permeable material to yield significant quantities of water to wells and springs (after Lohman and others, 1972).</documentation>
+                                        <element  gwAquiferType
+                                                        <documentation>Water in an Aquifer is, or is not, under pressure. Based on that, several aquifer types can be distinguished: unconfined, confined, artesian, subartesian, or aquitard (after INSPIRE 2013).</documentation>
+                                        <element  gwAquiferIsExploited
+                                                        <documentation>Denotes whether groundwater from the hydrogeologic unit is being exploited by wells or other intakes (after INSPIRE 2013).</documentation>
+                                        <element  gwAquiferIsMain
+                                                        <documentation>Denotes whether the unit is primary in the aquifer system (after INSPIRE 2013).</documentation>
+                                        <element  gwConfiningBed
+                                                        <documentation>Relates confining bed to an aquifer</documentation>
+        <element  GW_Divide
+                        <documentation>Line on a water table or piezometric surface on either side of which the groundwater flow diverges. IGH0556</documentation>
+                                        <element name="gwDivideShape" nillable="true" minOccurs="0" maxOccurs="1">
+                                                        <documentation>Shape and position of the divide (line, plane or point)... intersecting a groundwater surface.</documentation>
+                                        <element  gwDivideSurface
+                                                        <documentation>Relates to a surface linked to a groundwater divide</documentation>
+                                        <element  gwDivideFlow
+        <element  GW_FlowSystem
+                        <documentation>Flow path from recharge to discharge location, through hydrogeologic units, and related to a groundwater body. It is a collection or aggregation of specific flows.</documentation>
+                                        <element  gwFlowPath
+                                                        <documentation>The path of flow of a fluid through a container.</documentation>
+                                        <element  gwFlowSystemPart
+                                                        <documentation>Relates the parts of a flow system to the whole flow system</documentation>
+                                        <element  gwPartOfSystemFlow
+                                                        <documentation>Relates a flow system part to a flow system whole.       </documentation>
+                                        <element  gwFlow
+                                                        <documentation>Relates a flow system to the individual flows that comprise the system. Flows are atomic entities that cannot have parts, but which form parts of flow systems.</documentation>
+        <element  GW_AquiferSystem
+                        <documentation>Aquifer system - A body of permeable and poorly permeable material that functions regionally as a water-yielding unit; it comprises two or more permeable beds separated at least locally by confining beds that impede groundwater movement but do not greatly affect the regional hydraulic continuity of the system; includes both saturated and unsaturated parts of permeable material (after ASCE, 1985).</documentation>
+                                        <element name="gwAquiferSystemIsLayered" nillable="false" minOccurs="0" maxOccurs="1">
+                                                        <documentation>True if this aquifer system is a layered system (after INSPIRE 2013).</documentation>
+                                        <element  gwAquiferSystemPart
+                                                        <documentation>Relates to the parts of an aquifer system.</documentation>
+        <element  GW_ConfiningBed
+                        <documentation>A layer of rock having very low porosity and in consequence hydraulic conductivity that hampers the movement of water into and out of an aquifer (Heath 1983)</documentation>
+                                        <element  gwSpatialConfinement
+                                                        <documentation>Degree of spatial confinement (typically: "Unconfined-Confined", "Partially Confined").</documentation>
+                                        <element  gwConductivityConfinement
+                                                        <documentation>Degree of hydraulic confinement (e.g. aquiclude).</documentation>
+                                        <element  gwConfinedAquifer
+                                                        <documentation>Relates aquifers to a confining bed</documentation>
+        <element  GW_UnitVoidProperty
+                        <documentation>A measured or calculated physical or hydraulic property that can be inherent in either an aquifer or its material, and some fluid body, e.g. hydraulic conductivity, transmissivity, storativity, permeability, porosity.</documentation>
+                                        <element  gwPermeability
+                                                        <documentation>Refers to intrinsic permeability: a measure of a material's ability to allow fluid flow that is independent of fluid properties, and based on connectivity of pores and size of their openings. Not hydraulic conductivity.</documentation>
+                                        <element  gwPorosity
+                                                        <documentation>Porosity or void fraction is a measure of the void (i.e. "empty") spaces in a material, and is a fraction of the volume of voids over the total volume (i.e. material plus voids)" (after Wikipedia)  Types of porosity include: specific, effective, etc.
+                                        <element  gwVoidUnit
+                                                        <documentation>Relates to the hydrogeologic unit hosting the void</documentation>
+                                        <element  gwUnitVoid
+                                                        <documentation>Relates hydrogeologic units with a void hosted by the units</documentation>
+        <element  GW_Mixture
+                        <documentation>The nature of the inclusion of the constituent in the fluid body, e.g. suspension, emulsion, etc.</documentation>
+                                        <element  gwMixture
+                                                        <documentation>E.g. solution, suspension, emulsion, precipitate</documentation>
+                                        <element  gwBodyConstituent
+                                                        <documentation>Relates a fluid body to its chemical, biologic, or material constituents, and specifies the nature of the mixture of the constituent within the body, e.g. solution, suspension.</documentation>
+                        <documentation>The manner in which a constituent is within a fluid body, e.g. solution, suspension, emulsion, precipitate, colloidal.</documentation>
+                        <documentation>The manner in which a constituent is within a fluid body, e.g. solution, suspension, emulsion, precipitate, colloidal.</documentation>
+        <element  GW_UnitFluidProperty
+                        <documentation>A measured or calculated physical or hydraulic property that can be inherent in either an aquifer or its material, and some fluid body, e.g. hydraulic conductivity, transmissivity, storativity, permeability, porosity.</documentation>
+                                        <element  gwHydraulicConductivity
+                                                        <documentation>Hydraulic conductivity measures how easily a fluid can move through the voids in a material.</documentation>
+                                        <element  gwStorativity
+                                                        <documentation>Storativity is the volume of water released from storage per unit decline in hydraulic head in the aquifer, per unit area of the aquifer. (gwml1)</documentation>
+                                        <element  gwTransmissivity
+                                                        <documentation>he rate of groundwater flow laterally through an aquifer, determined by hydraulic conductivity and container thickness.</documentation>
+                                        <element  gwYield
+                                                        <documentation>Yield is the rate of fluid withdrawal associated with a unit, well, etc. Expressed as m3. There are several types of yield that can be considered: specific yield, sustainable yield, safe yield, aquifer yield, etc.</documentation>
+                                        <element  gwUnitFluidBody
+                                                        <documentation>Relates to the fluid body contained by the hydrogeologic unit.</documentation>
+                                        <element  gwFluidBodyUnit
+                                                        <documentation>Relates to the hydrogeologic unit containing the fluid body.</documentation>

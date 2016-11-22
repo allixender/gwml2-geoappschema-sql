@@ -1,0 +1,28 @@
+<settings>
+  <id>SettingsInfoImpl-102dd8ec:15017cdf26e:-8000</id>
+  <workspace>
+    <id>sams_workspace</id>
+    <name>sams</name>
+  </workspace>
+  <contact>
+    <id>contact</id>
+    <addressCountry>New Zealand</addressCountry>
+    <contactEmail>a.kmoch@gns.cri.nz</contactEmail>
+    <contactOrganization>GNS Science, AUT Universiy, Salzburg University</contactOrganization>
+    <contactPerson>Alexander Kmoch</contactPerson>
+    <contactPosition>Student</contactPosition>
+  </contact>
+  <charset>UTF-8</charset>
+  <numDecimals>4</numDecimals>
+  <verbose>true</verbose>
+  <verboseExceptions>false</verboseExceptions>
+  <metadata>
+    <map>
+      <entry>
+        <string>quietOnNotFound</string>
+        <boolean>false</boolean>
+      </entry>
+    </map>
+  </metadata>
+  <localWorkspaceIncludesPrefix>false</localWorkspaceIncludesPrefix>
+</settings>

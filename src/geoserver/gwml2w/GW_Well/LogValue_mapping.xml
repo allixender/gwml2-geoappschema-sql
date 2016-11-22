@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<as:AppSchemaDataAccess xmlns:as="http://www.geotools.org/app-schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.geotools.org/app-schema AppSchemaDataAccess.xsd">
+	<namespaces>
+		<Namespace><prefix>gml</prefix><uri>http://www.opengis.net/gml/3.2</uri></Namespace>
+		<Namespace><prefix>om</prefix><uri>http://www.opengis.net/om/2.0</uri></Namespace>
+		<Namespace><prefix>sams</prefix><uri>http://www.opengis.net/samplingSpatial/2.0</uri></Namespace>
+		<Namespace><prefix>sam</prefix><uri>http://www.opengis.net/sampling/2.0</uri></Namespace>
+		<Namespace><prefix>gmd</prefix><uri>http://www.isotc211.org/2005/gmd</uri></Namespace>
+		<Namespace><prefix>gwml2</prefix><uri>http://www.opengis.net/gwml-main/2.1</uri></Namespace>
+		<Namespace><prefix>gwml2w</prefix><uri>http://www.opengis.net/gwml-well/2.1</uri></Namespace>
+		<Namespace><prefix>swe</prefix><uri>http://www.opengis.net/swe/2.0</uri></Namespace>
+		<Namespace><prefix>gsml</prefix><uri>http://xmlns.geosciml.org/GeoSciML-Core/3.2</uri></Namespace>
+		<Namespace><prefix>gwml2wc</prefix><uri>http://www.opengis.net/gwml-wellconstruction/2.1</uri></Namespace>
+		<Namespace><prefix>gsmlgu</prefix><uri>http://xmlns.geosciml.org/GeologicUnit/3.2</uri></Namespace>
+		<Namespace><prefix>gsmlem</prefix><uri>http://xmlns.geosciml.org/EarthMaterial/3.2</uri></Namespace>
+		<Namespace><prefix>gwml2c</prefix><uri>http://www.opengis.net/gwml-constituent/2.1</uri></Namespace>
+		<Namespace><prefix>xlink</prefix><uri>http://www.w3.org/1999/xlink</uri></Namespace>
+		<Namespace><prefix>xsi</prefix><uri>http://www.w3.org/2001/XMLSchema-instance</uri></Namespace>
+		<Namespace><prefix>gmd</prefix><uri>http://www.isotc211.org/2005/gmd</uri></Namespace>
+	</namespaces>
+	<sourceDataStores>
+		<DataStore>
+			<id>propertyfile-logs</id>
+			<parameters>
+				<Parameter>
+					<name>directory</name>
+					<value>file:./</value>
+				</Parameter>
+			</parameters>
+		</DataStore>
+	</sourceDataStores>
+	<targetTypes>
+		<FeatureType>
+			<schemaUri>http://ngwd-bdnes.cits.nrcan.gc.ca/service/gwml/schemas/2.1/gwml2-well.xsd</schemaUri>
+			<schemaUri>http://ngwd-bdnes.cits.nrcan.gc.ca/service/gwml/schemas/2.1/gwml2-wellconstruction.xsd</schemaUri>
+			<schemaUri>http://schemas.geosciml.org/geosciml-core/3.2/geosciml-core.xsd</schemaUri>
+			<schemaUri>http://schemas.geosciml.org/geologicunit/3.2/geologicUnit.xsd</schemaUri>
+			<schemaUri>http://schemas.geosciml.org/earthmaterial/3.2/earthMaterial.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/gml/3.2.1/gml.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/om/2.0/observation.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</schemaUri>
+		</FeatureType>
+	</targetTypes>
+	<typeMappings>
+		<FeatureTypeMapping>
+			<mappingName>_gwml2w_LogValue</mappingName>
+			<sourceDataStore>propertyfile-logs</sourceDataStore>
+			<sourceType>LogValue</sourceType>
+			<targetElement>gwml2w:LogValue</targetElement>
+			<attributeMappings>
+				
+				<AttributeMapping>
+					<targetAttribute>gwml2w:fromDepth/swe:Quantity/swe:uom</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'http://qudt.org/vocab/unit#Meter'</value></ClientProperty>
+					<ClientProperty><name>xlink:title</name><value>'metre'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:fromDepth/swe:Quantity/swe:value</targetAttribute>
+					<sourceExpression><OCQL>FROMDEPTH</OCQL></sourceExpression>
+				</AttributeMapping>
+
+				<AttributeMapping>
+					<targetAttribute>gwml2w:toDepth/swe:Quantity/swe:uom</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'http://qudt.org/vocab/unit#Meter'</value></ClientProperty>
+					<ClientProperty><name>xlink:title</name><value>'metre'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:toDepth/swe:Quantity/swe:value</targetAttribute>
+					<sourceExpression><OCQL>TODEPTH</OCQL></sourceExpression>
+				</AttributeMapping>
+				
+				<AttributeMapping>
+					<targetAttribute>gwml2w:value/swe:DataRecord</targetAttribute>
+					<ClientProperty><name>definition</name><value>'http://www.opengis.net/def/gwml/2.1/datarecord/earthMaterial'</value></ClientProperty>
+					<ClientProperty><name>id</name><value>ID</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:value/swe:DataRecord/swe:field[1]</targetAttribute>
+					<ClientProperty><name>name</name><value>'lithology'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:value/swe:DataRecord/swe:field[1]/swe:Category</targetAttribute>
+					<ClientProperty><name>definition</name><value>'http://www.opengis.net/def/gwml/2.1/observedProperty/earthMaterial'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:value/swe:DataRecord/swe:field[1]/swe:Category/swe:codeSpace</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'http://resource.geosciml.org/classifierscheme/cgi/201211/simplelithology'</value></ClientProperty>
+					<ClientProperty><name>xlink:title</name><value>'Simple lithology'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:value/swe:DataRecord/swe:field[1]/swe:Category/swe:value</targetAttribute>
+					<sourceExpression><OCQL>LITH</OCQL></sourceExpression>
+				</AttributeMapping>
+				
+				<AttributeMapping>
+					<targetAttribute>gwml2w:value/swe:DataRecord/swe:field[2]</targetAttribute>
+					<ClientProperty><name>name</name><value>'description'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:value/swe:DataRecord/swe:field[2]/swe:Text</targetAttribute>
+					<ClientProperty><name>definition</name><value>'http://www.gwml.org/def/gwml/2.1/datarecord/FreeText'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:value/swe:DataRecord/swe:field[2]/swe:Text/swe:value</targetAttribute>
+					<sourceExpression><OCQL>LITHPROCESSED</OCQL></sourceExpression>
+				</AttributeMapping>
+				
+				<AttributeMapping>
+					<targetAttribute>FEATURE_LINK[3]</targetAttribute>
+					<sourceExpression><OCQL>WELLID</OCQL></sourceExpression>
+				</AttributeMapping>
+				
+			</attributeMappings>
+		</FeatureTypeMapping>
+	</typeMappings>
+</as:AppSchemaDataAccess>

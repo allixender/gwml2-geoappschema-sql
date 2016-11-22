@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<as:AppSchemaDataAccess xmlns:as="http://www.geotools.org/app-schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.geotools.org/app-schema AppSchemaDataAccess.xsd">
+	<namespaces>
+		<Namespace><prefix>gml</prefix><uri>http://www.opengis.net/gml/3.2</uri></Namespace>
+		<Namespace><prefix>om</prefix><uri>http://www.opengis.net/om/2.0</uri></Namespace>
+		<Namespace><prefix>sam</prefix><uri>http://www.opengis.net/sampling/2.0</uri></Namespace>
+		<Namespace><prefix>sams</prefix><uri>http://www.opengis.net/samplingSpatial/2.0</uri></Namespace>
+		<Namespace><prefix>xlink</prefix><uri>http://www.w3.org/1999/xlink</uri></Namespace>
+		<Namespace><prefix>xsi</prefix><uri>http://www.w3.org/2001/XMLSchema-instance</uri></Namespace>
+		<Namespace><prefix>gmd</prefix><uri>http://www.isotc211.org/2005/gmd</uri></Namespace>
+		<Namespace><prefix>gco</prefix><uri>http://www.isotc211.org/2005/gco</uri></Namespace>
+		
+	</namespaces>
+	<sourceDataStores>
+		<DataStore>
+			<id>propertyfile</id>
+			<parameters>
+				<Parameter>
+					<name>directory</name>
+					<value>file:./</value>
+				</Parameter>
+			</parameters>
+		</DataStore>
+	</sourceDataStores>
+	<targetTypes>
+		<FeatureType>
+			<schemaUri>http://schemas.opengis.net/om/2.0/observation.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/gml/3.2.1/gml.xsd</schemaUri>
+			<schemaUri>http://www.isotc211.org/2005/gco/gco.xsd</schemaUri>
+			<schemaUri>http://www.isotc211.org/2005/gmd/gmd.xsd</schemaUri>
+		</FeatureType>
+	</targetTypes>
+	<typeMappings>
+		<FeatureTypeMapping>
+			<mappingName>_om_OM_Observation</mappingName>
+			<sourceDataStore>propertyfile</sourceDataStore>
+			<sourceType>OM_Observation</sourceType>
+			<targetElement>om:OM_Observation</targetElement>
+			<attributeMappings>
+				<AttributeMapping>
+					<targetAttribute>om:OM_Observation</targetAttribute>
+					<idExpression><OCQL>strConcat('ngmp.', ID)</OCQL></idExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gml:identifier</targetAttribute>
+					<sourceExpression><OCQL>strConcat('${vocab.uriprefix}/da/', ID)</OCQL></sourceExpression>	
+					<ClientProperty><name>codeSpace</name><value>'${gns.codespace}'</value></ClientProperty>	
+				</AttributeMapping>
+				
+				<!--
+				<gml:metaDataProperty>
+				  <gml:GenericMetaData>
+					<gmd:CI_OnlineResource>
+					  <gmd:linkage>
+						<gmd:URL>http://some.one.org/servicename/sos</gmd:URL>
+					  </gmd:linkage>
+					  <gmd:protocol>
+						<gco:CharacterString>OGC:SOS-2.0</gco:CharacterString>
+					  </gmd:protocol>
+					</gmd:CI_OnlineResource>
+				  </gml:GenericMetaData>
+				</gml:metaDataProperty>
+				
+				<AttributeMapping>
+					<targetAttribute>gml:metaDataProperty/gml:GenericMetaData/gmd:CI_OnlineResource/gmd:linkage/gmd:URL</targetAttribute>
+					<sourceExpression><OCQL>'http://portal.smart-project.info/sos-smart/sos/kvp'</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gml:metaDataProperty/gml:GenericMetaData/gmd:CI_OnlineResource/gmd:protocol/gco:CharacterString</targetAttribute>
+					<sourceExpression><OCQL>'OGC:SOS-2.0'</OCQL></sourceExpression>
+				</AttributeMapping>
+				-->
+				<!--
+				<AttributeMapping>
+					<targetAttribute>gml:metaDataProperty</targetAttribute>
+					<ClientProperty><name>xlink:title</name><value>'OGC:SOS-2.0'</value></ClientProperty>
+				</AttributeMapping>
+				
+				<AttributeMapping>
+					<targetAttribute>gml:metaDataProperty/gml:GenericMetaData/gml:description</targetAttribute>
+					<sourceExpression><OCQL>'http://portal.smart-project.info/sos-smart/sos/kvp'</OCQL></sourceExpression>
+				</AttributeMapping>
+				-->
+				
+				<!--
+				<om:parameter>
+				  <om:NamedValue>
+					<om:name xlink:href="http://eodp.domain.nz/def/param-name/eodp/1.0/relatedSOSendpoint"/>
+					<om:value xlink:href="http://some.one.org/servicename/sos"/>
+				  </om:NamedValue>
+				</om:parameter>
+				-->
+				
+				<AttributeMapping>
+					<targetAttribute>om:parameter/om:NamedValue/om:name</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'http://eodp.domain.nz/def/param-name/eodp/1.0/relatedSOSendpoint'</value></ClientProperty>
+					<ClientProperty><name>xlink:arcrole</name><value>'observationdata'</value></ClientProperty>
+					<ClientProperty><name>xlink:role</name><value>'relatedSOSendpoint'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:parameter/om:NamedValue/om:value</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'http://portal.smart-project.info/sos-smart/sos/kvp'</value></ClientProperty>
+					<ClientProperty><name>xlink:arcrole</name><value>'protocol'</value></ClientProperty>
+					<ClientProperty><name>xlink:role</name><value>'OGC:SOS-2.0'</value></ClientProperty>
+				</AttributeMapping>
+				
+				<AttributeMapping>
+					<targetAttribute>om:type</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:phenomenonTime/gml:TimePeriod</targetAttribute>
+					<idExpression><OCQL>strConcat('ngmp.tp.phen.', PHENTIMEGMLID)</OCQL></idExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:phenomenonTime/gml:TimePeriod/gml:beginPosition</targetAttribute>
+					<sourceExpression><OCQL>PHENTIMESTART</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:phenomenonTime/gml:TimePeriod/gml:endPosition</targetAttribute>
+					<sourceExpression><OCQL>PHENTIMEEND</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:resultTime/gml:TimeInstant/gml:timePosition</targetAttribute>
+					<sourceExpression><OCQL>RESULTTIME</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:validTime</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'inapplicable'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:procedure</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>PROCEDUREURI</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:observedProperty</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>OBSERVEDPROPERTYURI</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:featureOfInterest</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>SAMPLINGFEATUREURI</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>om:resultQuality</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'${nil.withheld}'</value></ClientProperty>					
+				</AttributeMapping>				
+				<AttributeMapping>
+					<targetAttribute>om:result</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'${nil.withheld}'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>FEATURE_LINK</targetAttribute>
+					<sourceExpression><OCQL>SAMPLINGFEATUREURI</OCQL></sourceExpression>
+				</AttributeMapping>
+				
+			</attributeMappings>
+		</FeatureTypeMapping>
+	</typeMappings>
+</as:AppSchemaDataAccess>

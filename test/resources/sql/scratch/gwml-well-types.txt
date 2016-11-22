@@ -1,0 +1,105 @@
+		<documentation>Describes the features and properties associated with water well. Imports WellConstruction.</documentation>
+	<element  GW_GeologyLogCoverage
+			<documentation>Overrides discrete coverage to allow LogValues as elements.</documentation>
+					<element  element
+							<documentation>Link to a LogValue of the GW_GeologyLogCoverage.</documentation>
+	<element  GW_MonitoringSite
+			<documentation>Observation site (e.g. well) used to watch for the advent of an anticipated condition, generally undesirable, such as the advance of the salt-water front in a coastal area where salt-water encroachment is occurring, or the movement of a pollutant injected into a disposal well. IGH0806</documentation>
+					<element  gwMonitoringHost
+							<documentation>The feature hosting the site, e.g. a well, spring, lake or stream.</documentation>
+					<element name="gwSiteReferenceElevation" nillable="true" minOccurs="0" maxOccurs="unbounded">
+							<documentation>Reference elevation for all observations at the site, e.g. ground elevation, casing elevation. This can differ from the host feature elevation, or be more specific. </documentation>
+					<element  gwSiteType
+							<documentation>Type of monitoring site, e.g. well, gauging station, etc.</documentation>
+	<element  GW_Spring
+			<documentation>Any natural situation where groundwater flows to the surface of the earth.</documentation>
+					<element name="gwSpringName" nillable="false" minOccurs="0" maxOccurs="unbounded">
+							<documentation>Name or ID of the spring.</documentation>
+					<element  gwSpringLocation
+							<documentation>Position of the feature.</documentation>
+					<element name="gwSpringReferenceElevation" nillable="true" minOccurs="0" maxOccurs="unbounded">
+							<documentation>Reference elevation for all observations at the site, e.g. ground elevation, casing elevation.</documentation>
+					<element  gwSpringType
+							<documentation>Type of spring e.g. mineral, thermal, saline, etc.</documentation>
+					<element  gwSpringCauseType
+							<documentation>The cause of the spring e.g. artesian, geyser, perched, etc.</documentation>
+					<element  gwSpringGeology
+							<documentation>Related geology features, e.g. borehole, unit, etc.</documentation>
+					<element  gwSpringBody
+							<documentation>The fluid body being depleted by the spring.</documentation>
+					<element  gwSpringUnit
+							<documentation>The hydrogeologic unit(s) hosting the spring.</documentation>
+					<element name="gwSpringConstruction" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Spring construction details, if any.</documentation>
+					<element  gwSpringPersistence
+							<documentation>The periodicity of the spring e.g. ephemeral, perennial, intermittent, seasonal, etc.</documentation>
+					<element name="gwSpringLicence" nillable="true" minOccurs="0" maxOccurs="unbounded">
+							<documentation>Any licence relating to the spring.</documentation>
+	<element  GW_GeologyLog
+			<documentation>Specialization of the OM_Observation class to allow defining the log start end depth for coverages.
+					<element name="startDepth" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>The start of the log measured as a depth from the reference elevation.</documentation>
+					<element name="endDepth" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>The end of the log measured as a depth from the reference elevation.</documentation>
+					<element  result
+							<documentation>Relates a geology log with a particular collection of values (the result) that represent the group of measurements taken in intervals along the length of the log.</documentation>
+	<element  GW_Well
+			<documentation>A shaft or hole sunk, dug or drilled into the Earth to observe, extract or inject water (after IGH1397).</documentation>
+					<element  gwWellBody
+							<documentation>The fluid body occupying the well.</documentation>
+					<element  gwWellConstructedDepth
+							<documentation>Constructed depth of the well.</documentation>
+					<element  gwWellConstruction
+							<documentation>Construction details for a well.</documentation>
+					<element  gwWellContributionZone
+							<documentation>The area or volume surrounding a pumping well or other discharge site that encompasses all areas and features that supply groundwater to the well or discharge site.</documentation>
+					<element  gwWellLocation
+							<documentation>Surface location of the well.</documentation>
+					<element  gwWellPurpose
+							<documentation>Purpose of well, e.g. extraction, injection, observation, dewatering, cathodic protection, decontamination, disposal, FlowingShot, Geotechnical, Mineral, MonitoringlevelHead, MonitoringQuality, Oil, OilExploratory, Seismic, WaterExploratory, etc.</documentation>
+					<element name="gwWellReferenceElevation" nillable="true" minOccurs="0" maxOccurs="unbounded">
+							<documentation>Reference elevation for all observations at the site, e.g. ground elevation, casing elevation.</documentation>
+					<element  gwWellStaticWaterDepth
+							<documentation>Depth of the fluid body (e.g. piezometric level).</documentation>
+					<element  gwWellStatus
+							<documentation>Status of the well, Can be new, unfinished, reconditioned, deepened, not in use, standby, unknown, abandoned dry, abandoned insufficient, abandoned quality. (gwml1)</documentation>
+					<element name="gwWellTotalLength" nillable="true" minOccurs="0" maxOccurs="1">
+							<documentation>Total length of the well from reference elevation.</documentation>
+					<element  gwWellUnit
+							<documentation>The aquifers or confining beds intersecting the well.</documentation>
+					<element  gwWellWaterUse
+							<documentation>E.g. Agricultural, Domestic, Industrial, Recreation.</documentation>
+					<element  gwWellYield
+							<documentation>Estimated or calculated yield from a well.	</documentation>
+					<element name="gwWellLicence" nillable="true" minOccurs="0" maxOccurs="unbounded">
+							<documentation>Licence relating to the drilling of the well or to the extraction of groundwater.</documentation>
+					<element  gwWellGeology
+							<documentation>Relates a GeologyLog with a well.</documentation>
+	<element  Elevation
+			<documentation>A class to capture the elevation information about a well to enable applications that cannot handle 3D data.</documentation>
+			<element  elevation
+					<documentation>Numeric value, coordinate reference system (CRS), and unit of measure (UoM) for the elevation.</documentation>
+			<element  elevationAccuracy
+					<documentation>Description of the accuracy of the elevation measurement.</documentation>
+			<element  elevationType
+					<documentation>Type of reference elevation, defined as a feature, e.g. Top of Casing, Ground, etc.</documentation>
+			<element name="elevationMeasurementMethod" nillable="false" minOccurs="0" maxOccurs="1">
+					<documentation>Method used to measure the elevation, e.g. GPS, Survey, DEM, etc.</documentation>
+	<element  GW_Licence
+			<documentation>Licence relating to the drilling of the well or to the extraction of groundwater.</documentation>
+			<element  gwLicenceID
+					<documentation>Identifier of the licence.</documentation>
+			<element name="gwPurpose" nillable="true" minOccurs="0" maxOccurs="1">
+					<documentation>Role of the licence.</documentation>
+			<element name="gwAssociatedGWVolume" nillable="true" minOccurs="0" maxOccurs="1">
+					<documentation>Fluid volume associated with the licence.</documentation>
+			<element name="gwTimePeriod" nillable="true" minOccurs="0" maxOccurs="1">
+					<documentation>The period of time for which the licence is valid.</documentation>
+	<element  LogValue
+			<documentation>The value of the log property at a depth interval along the log.</documentation>
+			<element name="fromDepth" nillable="true" minOccurs="0" maxOccurs="1">
+					<documentation>Start depth of the interval along a log.</documentation>
+			<element name="toDepth" nillable="true" minOccurs="0" maxOccurs="1">
+					<documentation>End depth of the interval along a log.</documentation>
+			<element name="value" nillable="false" minOccurs="0" maxOccurs="1">
+					<documentation>Value of the log property.</documentation>

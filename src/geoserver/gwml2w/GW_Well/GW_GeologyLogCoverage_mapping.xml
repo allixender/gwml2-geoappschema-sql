@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<as:AppSchemaDataAccess xmlns:as="http://www.geotools.org/app-schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.geotools.org/app-schema AppSchemaDataAccess.xsd">
+	<namespaces>
+		<Namespace><prefix>gml</prefix><uri>http://www.opengis.net/gml/3.2</uri></Namespace>
+		<Namespace><prefix>om</prefix><uri>http://www.opengis.net/om/2.0</uri></Namespace>
+		<Namespace><prefix>sams</prefix><uri>http://www.opengis.net/samplingSpatial/2.0</uri></Namespace>
+		<Namespace><prefix>sam</prefix><uri>http://www.opengis.net/sampling/2.0</uri></Namespace>
+		<Namespace><prefix>gmd</prefix><uri>http://www.isotc211.org/2005/gmd</uri></Namespace>
+		<Namespace><prefix>gwml2</prefix><uri>http://www.opengis.net/gwml-main/2.1</uri></Namespace>
+		<Namespace><prefix>gwml2w</prefix><uri>http://www.opengis.net/gwml-well/2.1</uri></Namespace>
+		<Namespace><prefix>swe</prefix><uri>http://www.opengis.net/swe/2.0</uri></Namespace>
+		<Namespace><prefix>gsml</prefix><uri>http://xmlns.geosciml.org/GeoSciML-Core/3.2</uri></Namespace>
+		<Namespace><prefix>gwml2wc</prefix><uri>http://www.opengis.net/gwml-wellconstruction/2.1</uri></Namespace>
+		<Namespace><prefix>gsmlgu</prefix><uri>http://xmlns.geosciml.org/GeologicUnit/3.2</uri></Namespace>
+		<Namespace><prefix>gsmlem</prefix><uri>http://xmlns.geosciml.org/EarthMaterial/3.2</uri></Namespace>
+		<Namespace><prefix>gwml2c</prefix><uri>http://www.opengis.net/gwml-constituent/2.1</uri></Namespace>
+		<Namespace><prefix>xlink</prefix><uri>http://www.w3.org/1999/xlink</uri></Namespace>
+		<Namespace><prefix>xsi</prefix><uri>http://www.w3.org/2001/XMLSchema-instance</uri></Namespace>
+		<Namespace><prefix>gco</prefix><uri>http://www.isotc211.org/2005/gco</uri></Namespace>
+	</namespaces>
+	
+	<includedTypes>
+		<Include>LogValue_mapping.xml</Include>
+	</includedTypes>
+	
+	<sourceDataStores>
+		<DataStore>
+			<id>propertyfile-map</id>
+			<parameters>
+				<Parameter>
+					<name>directory</name>
+					<value>file:./</value>
+				</Parameter>
+			</parameters>
+		</DataStore>
+	</sourceDataStores>
+	<targetTypes>
+		<FeatureType>
+			<schemaUri>http://ngwd-bdnes.cits.nrcan.gc.ca/service/gwml/schemas/2.1/gwml2-main.xsd</schemaUri>
+			<schemaUri>http://ngwd-bdnes.cits.nrcan.gc.ca/service/gwml/schemas/2.1/gwml2-well.xsd</schemaUri>
+			<schemaUri>http://ngwd-bdnes.cits.nrcan.gc.ca/service/gwml/schemas/2.1/gwml2-wellconstruction.xsd</schemaUri>
+			<schemaUri>http://schemas.geosciml.org/geosciml-core/3.2/geosciml-core.xsd</schemaUri>
+			<schemaUri>http://schemas.geosciml.org/geologicunit/3.2/geologicUnit.xsd</schemaUri>
+			<schemaUri>http://schemas.geosciml.org/earthmaterial/3.2/earthMaterial.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/gml/3.2.1/gml.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/om/2.0/observation.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd</schemaUri>
+		</FeatureType>
+	</targetTypes>
+	<typeMappings>
+		<FeatureTypeMapping>
+			<mappingName>_gwml2w_GW_GeologyLogCoverage</mappingName>
+			<sourceDataStore>propertyfile-map</sourceDataStore>
+			<sourceType>GW_GeologyLogCoverage</sourceType>
+			<targetElement>gwml2w:GW_GeologyLogCoverage</targetElement>
+			<attributeMappings>
+				<AttributeMapping>
+					<targetAttribute>gwml2w:GW_GeologyLogCoverage</targetAttribute>
+					<idExpression><OCQL>strConcat('soe.well.lithology.coverage', WELLID)</OCQL></idExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gml:identifier</targetAttribute>
+					<sourceExpression><OCQL>strConcat('${vocab.uriprefix}/soe/log-cov/', WELLID)</OCQL></sourceExpression>	
+					<ClientProperty><name>codeSpace</name><value>'${gns.codespace}'</value></ClientProperty>	
+				</AttributeMapping>
+				
+				<AttributeMapping>
+					<targetAttribute>gwml2w:element</targetAttribute>
+					<sourceExpression>
+						<OCQL>WELLID</OCQL>
+						<linkElement>_gwml2w_LogValue</linkElement>
+						<linkField>FEATURE_LINK[3]</linkField>
+					</sourceExpression>
+					<isMultiple>true</isMultiple>
+				</AttributeMapping>
+				
+				<AttributeMapping>
+					<targetAttribute>FEATURE_LINK[2]</targetAttribute>
+					<sourceExpression><OCQL>WELLID</OCQL></sourceExpression>
+				</AttributeMapping>
+				
+			</attributeMappings>
+		</FeatureTypeMapping>
+	</typeMappings>
+</as:AppSchemaDataAccess>

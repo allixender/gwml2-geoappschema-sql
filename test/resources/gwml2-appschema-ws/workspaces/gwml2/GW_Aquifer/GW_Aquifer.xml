@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<as:AppSchemaDataAccess xmlns:as="http://www.geotools.org/app-schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.geotools.org/app-schema AppSchemaDataAccess.xsd">
+	<namespaces>
+		<Namespace><prefix>gml</prefix><uri>http://www.opengis.net/gml/3.2</uri></Namespace>
+		<Namespace><prefix>om</prefix><uri>http://www.opengis.net/om/2.0</uri></Namespace>
+		<Namespace><prefix>sams</prefix><uri>http://www.opengis.net/samplingSpatial/2.0</uri></Namespace>
+		<Namespace><prefix>sam</prefix><uri>http://www.opengis.net/sampling/2.0</uri></Namespace>
+		<Namespace><prefix>gmd</prefix><uri>http://www.isotc211.org/2005/gmd</uri></Namespace>
+		<Namespace><prefix>gco</prefix><uri>http://www.isotc211.org/2005/gco</uri></Namespace>
+		<Namespace><prefix>gwml2</prefix><uri>http://www.opengis.net/gwml-main/2.1</uri></Namespace>
+		<Namespace><prefix>gwml2w</prefix><uri>http://www.opengis.net/gwml-well/2.1</uri></Namespace>
+		<Namespace><prefix>swe</prefix><uri>http://www.opengis.net/swe/2.0</uri></Namespace>
+		<Namespace><prefix>gsml</prefix><uri>http://xmlns.geosciml.org/GeoSciML-Core/3.2</uri></Namespace>
+		<Namespace><prefix>gwml2wc</prefix><uri>http://www.opengis.net/gwml-wellconstruction/2.1</uri></Namespace>
+		<Namespace><prefix>gsmlgu</prefix><uri>http://xmlns.geosciml.org/GeologicUnit/3.2</uri></Namespace>
+		<Namespace><prefix>gsmlem</prefix><uri>http://xmlns.geosciml.org/EarthMaterial/3.2</uri></Namespace>
+		<Namespace><prefix>gwml2c</prefix><uri>http://www.opengis.net/gwml-constituent/2.1</uri></Namespace>
+		<Namespace><prefix>xlink</prefix><uri>http://www.w3.org/1999/xlink</uri></Namespace>
+		<Namespace><prefix>xsi</prefix><uri>http://www.w3.org/2001/XMLSchema-instance</uri></Namespace>
+
+	</namespaces>
+	<sourceDataStores>
+		<DataStore>
+			<id>shapefile</id>
+			<parameters>
+				<Parameter>
+					<name>url</name>
+					<value>file:/home/geoserver/geo-app-schema-complex-ws/shared-data/nz-aquifers/nz-aquifers.shp</value>
+				</Parameter>
+				<Parameter>
+					<name>memory mapped buffer</name>
+					<value>false</value>
+				</Parameter>
+				<Parameter>
+					<name>create spatial index</name>
+					<value>true</value>
+				</Parameter>
+				<Parameter>
+					<name>charset</name>
+					<value>ISO-8859-1</value>
+				</Parameter>
+			</parameters>
+		</DataStore>
+    <!--
+    <DataStore>
+      <id>datastore</id>
+      <parameters>
+          <Parameter>
+              <name>dbtype</name>
+              <value>postgisng</value>
+          </Parameter>
+          <Parameter>
+              <name>jndiReferenceName</name>
+              <value>${gwml2.jndi}</value>
+          </Parameter>
+      </parameters>
+  </DataStore>
+  -->
+	</sourceDataStores>
+	<targetTypes>
+		<FeatureType>
+			<schemaUri>http://ngwd-bdnes.cits.nrcan.gc.ca/service/gwml/schemas/2.1/gwml2-main.xsd</schemaUri>
+			<schemaUri>http://schemas.geosciml.org/geosciml-core/3.2/geosciml-core.xsd</schemaUri>
+			<schemaUri>http://schemas.geosciml.org/geologicunit/3.2/geologicUnit.xsd</schemaUri>
+			<schemaUri>http://schemas.geosciml.org/earthmaterial/3.2/earthMaterial.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/om/2.0/observation.xsd</schemaUri>
+			<schemaUri>http://schemas.opengis.net/gml/3.2.1/gml.xsd</schemaUri>
+		</FeatureType>
+	</targetTypes>
+	<typeMappings>
+		<FeatureTypeMapping>
+			<sourceDataStore>shapefile</sourceDataStore>
+			<sourceType>nz-aquifers</sourceType>
+			<targetElement>gwml2:GW_Aquifer</targetElement>
+			<attributeMappings>
+				<AttributeMapping>
+					<targetAttribute>gwml2:GW_Aquifer</targetAttribute>
+					<idExpression><OCQL>strConcat('nz.gns.hy-unit.', ID)</OCQL></idExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gml:identifier</targetAttribute>
+					<ClientProperty><name>codeSpace</name><value>'${gns.codespace}'</value></ClientProperty>
+					<sourceExpression><OCQL>strConcat('hy-unit.shapes.', ID)</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gml:name</targetAttribute>
+					<ClientProperty><name>codeSpace</name><value>'${gns.codespace}'</value></ClientProperty>
+					<sourceExpression><OCQL>strConcat('aquifer.shapes.', ID)</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gml:description</targetAttribute>
+					<ClientProperty><name>codeSpace</name><value>'${gns.codespace}'</value></ClientProperty>
+					<sourceExpression><OCQL>strConcat('no other desc available; area in hectares', HECTARES)</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2:gwAquiferType</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'http://somevocab.org/gwml/2.0/notes'</value></ClientProperty>
+					<ClientProperty><name>xlink:title</name><value>'not specified'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2:gwUnitMedia</targetAttribute>
+					<ClientProperty><name>xlink:href</name><value>'http://somevocab.org/gwml/2.0/notes'</value></ClientProperty>
+					<ClientProperty><name>xlink:title</name><value>'mixed'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2:gwAquiferIsExploited</targetAttribute>
+					<sourceExpression><OCQL>'true'</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2:gwAquiferIsMain</targetAttribute>
+					<sourceExpression><OCQL>'false'</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2:gwUnitWaterBudget</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2:gwUnitRecharge</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2:gwUnitDischarge</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2:gwUnitVulnerability</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gwml2:gwConfiningBed</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+
+				<AttributeMapping>
+					<targetAttribute>gsml:observationMethod</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gsml:purpose</targetAttribute>
+					<sourceExpression><OCQL>strConcat('Instance part from White, Rosen (2002), no#', AQUIFER)</OCQL></sourceExpression>
+				</AttributeMapping>
+
+				<AttributeMapping>
+					<targetAttribute>gsml:occurrence/gsml:MappedFeature/gsml:observationMethod</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'missing'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gsml:occurrence/gsml:MappedFeature/gsml:positionalAccuracy</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'unknown'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gsml:occurrence/gsml:MappedFeature/gsml:resolutionScale/gmd:MD_RepresentativeFraction/gmd:denominator/gco:Integer</targetAttribute>
+					<sourceExpression><OCQL>'50000'</OCQL></sourceExpression>
+				</AttributeMapping>
+
+				<AttributeMapping>
+					<targetAttribute>gsml:occurrence/gsml:MappedFeature/gsml:shape</targetAttribute>
+					<ClientProperty><name>srsName</name><value>strConcat('${uri.crs}', '4326')</value></ClientProperty>
+					<idExpression><OCQL>strConcat('sams.shape.unit', ID)</OCQL></idExpression>
+					<sourceExpression><OCQL>the_geom</OCQL></sourceExpression>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gsml:occurrence/gsml:MappedFeature/gsml:metadata</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'missing'</value></ClientProperty>
+				</AttributeMapping>
+
+				<AttributeMapping>
+					<targetAttribute>gsml:relatedFeature</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'missing'</value></ClientProperty>
+				</AttributeMapping>
+				<AttributeMapping>
+					<targetAttribute>gsml:occurrence/gsml:MappedFeature/gsml:metadata</targetAttribute>
+					<ClientProperty><name>xsi:nil</name><value>'true'</value></ClientProperty>
+					<ClientProperty><name>nilReason</name><value>'missing'</value></ClientProperty>
+				</AttributeMapping>
+
+				<!-- <AttributeMapping>
+					<targetAttribute>gwml2:gwSiteReferenceElevation</targetAttribute>
+					<sourceExpression><OCQL>ID</OCQL><linkElement>_gwml2w_gwSiteReferenceElevation</linkElement>
+					<linkField>FEATURE_LINK</linkField></sourceExpression>
+					<isMultiple>false</isMultiple>
+				</AttributeMapping> -->
+
+				<!-- <AttributeMapping>
+					<targetAttribute>sams:shape</targetAttribute>
+					<ClientProperty><name>srsName</name><value>strConcat('${uri.crs}', '4326')</value></ClientProperty>
+					<idExpression><OCQL>strConcat('sams.shape.unit', ID)</OCQL></idExpression>
+					<sourceExpression><OCQL>the_geom</OCQL></sourceExpression>
+				</AttributeMapping> -->
+
+			</attributeMappings>
+		</FeatureTypeMapping>
+
+	</typeMappings>
+</as:AppSchemaDataAccess>

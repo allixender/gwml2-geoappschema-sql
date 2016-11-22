@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:Dictionary xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd" gml:id="MixtureTypeTerm">
+    <gml:identifier codeSpace=""/>
+    <gml:name>MixtureTypeTerm</gml:name>
+    <gml:dictionaryEntry>
+        <gml:Definition gml:id="colloidal">
+            <gml:description/>
+            <gml:identifier codeSpace="">colloidal</gml:identifier>
+            <gml:name>colloidal</gml:name>
+        </gml:Definition>
+    </gml:dictionaryEntry>
+    <gml:dictionaryEntry>
+        <gml:Definition gml:id="precipitate">
+            <gml:description/>
+            <gml:identifier codeSpace="">precipitate</gml:identifier>
+            <gml:name>precipitate</gml:name>
+        </gml:Definition>
+    </gml:dictionaryEntry>
+    <gml:dictionaryEntry>
+        <gml:Definition gml:id="solution">
+            <gml:description/>
+            <gml:identifier codeSpace="">solution</gml:identifier>
+            <gml:name>solution</gml:name>
+        </gml:Definition>
+    </gml:dictionaryEntry>
+    <gml:dictionaryEntry>
+        <gml:Definition gml:id="suspension">
+            <gml:description/>
+            <gml:identifier codeSpace="">suspension</gml:identifier>
+            <gml:name>suspension</gml:name>
+        </gml:Definition>
+    </gml:dictionaryEntry>
+</gml:Dictionary>

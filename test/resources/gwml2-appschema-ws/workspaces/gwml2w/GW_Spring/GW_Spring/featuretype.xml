@@ -1,0 +1,28 @@
+<featureType>
+    <id>GW_Spring</id>
+    <name>GW_Spring</name>
+    <nativeName>GW_Spring</nativeName>
+    <namespace>
+        <id>gwml2w_namespace</id>
+    </namespace>
+    <title>GW_Spring</title>
+    <abstract>Any natural situation where groundwater flows to the surface of the earth. Thus, a spring is a site where the aquifer surface meets the ground surface. - need more precise definition (taken from wiki discussion)</abstract>
+    <srs>EPSG:4326</srs>
+    <latLonBoundingBox>
+		<minx>171</minx><maxx>172</maxx>
+		<miny>-44</miny><maxy>-43</maxy>
+        <crs>EPSG:4326</crs>
+    </latLonBoundingBox>
+    <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+    <enabled>true</enabled>
+    <metadata>
+        <entry key="kml.regionateFeatureLimit">50</entry>
+        <entry key="indexingEnabled">true</entry>
+        <entry key="cachingEnabled">true</entry>
+    </metadata>
+    <store class="dataStore">
+        <id>GW_Spring_datastore</id>
+    </store>
+    <maxFeatures>0</maxFeatures>
+    <numDecimals>0</numDecimals>
+</featureType>

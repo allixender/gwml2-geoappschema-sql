@@ -1,0 +1,28 @@
+<featureType>
+    <id>GW_Well</id>
+    <name>GW_Well</name>
+    <nativeName>GW_Well</nativeName>
+    <namespace>
+        <id>gwml2w_namespace</id>
+    </namespace>
+    <title>GW_Well</title>
+    <abstract>A shaft or hole sunk, dug or drilled into the Earth to extract water. IGH1379</abstract>
+    <srs>EPSG:4326</srs>
+    <latLonBoundingBox>
+		<minx>171</minx><maxx>172</maxx>
+		<miny>-44</miny><maxy>-43</maxy>
+        <crs>EPSG:4326</crs>
+    </latLonBoundingBox>
+    <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+    <enabled>true</enabled>
+    <metadata>
+        <entry key="kml.regionateFeatureLimit">50</entry>
+        <entry key="indexingEnabled">true</entry>
+        <entry key="cachingEnabled">true</entry>
+    </metadata>
+    <store class="dataStore">
+        <id>GW_Well_datastore</id>
+    </store>
+    <maxFeatures>0</maxFeatures>
+    <numDecimals>0</numDecimals>
+</featureType>
