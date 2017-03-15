@@ -52,6 +52,11 @@ javacOptions in Compile ++= Seq(
   "-Xlint:unchecked"
 )
 
+
+
+// new sbt-site 1.0.0 config SiteScaladocPlugin incompatible with activator sbt-site bundle 0.8.1
+lazy val root = (project in file(".")).enablePlugins(WebappPlugin, JettyPlugin, SiteScaladocPlugin)
+
 // custom geoserver download and run with app-schema to test gwml2 sql and workspace
 cleanFiles <+= baseDirectory { base => base / "temp" }
 
@@ -80,15 +85,11 @@ geoserverDownloadZip := {
   }
 }
 
-compile in Test <<= (compile in Test).dependsOn(geoserverDownloadZip)
-
-
-enablePlugins(WebappPlugin)
-enablePlugins(JettyPlugin)
+compile in Compile <<= (compile in Compile).dependsOn(geoserverDownloadZip)
 
 containerArgs := Seq("--path", "/geoserver")
 
-// javaOptions in Jetty += "-DdbUrl=jdbc:postgresql://127.0.0.1/appschemadev"
+javaOptions in Jetty += "-DdbUrl=jdbc:postgresql://127.0.0.1/appschemadev"
 
 sourceDirectory in webappPrepare := (baseDirectory in Compile).value / "temp/webapp"
 
