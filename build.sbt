@@ -6,6 +6,7 @@ version := "1.0-SNAPSHOT"
 val postgresDriver = "9.4.1211.jre7"
 val ScalaCheck      = "1.12.5"
 val ScalaTest       = "2.2.6"
+val Slf4j           = "1.7.21"
 
 // val geotoolsVersion = "13.1" // 13.6, 14.5, 15.4, 16.2
 val geoserverVersion = "2.10.2"
@@ -15,7 +16,8 @@ libraryDependencies ++= Seq(
   "org.scalatest"       %%  "scalatest"      % ScalaTest,
   "org.scalacheck"      %% "scalacheck"      % ScalaCheck,
   "com.typesafe"        % "config"           % "1.3.1",
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
+  "ch.qos.logback" % "logback-classic" % "1.1.7"
 
   // "org.geotools" % "gt-epsg-hsql" % geotoolsVersion,
   // "org.geotools" % "gt-referencing" % geotoolsVersio
@@ -52,10 +54,8 @@ javacOptions in Compile ++= Seq(
   "-Xlint:unchecked"
 )
 
-
-
 // new sbt-site 1.0.0 config SiteScaladocPlugin incompatible with activator sbt-site bundle 0.8.1
-lazy val root = (project in file(".")).enablePlugins(WebappPlugin, JettyPlugin, SiteScaladocPlugin)
+enablePlugins(WebappPlugin, JettyPlugin, SiteScaladocPlugin)
 
 // custom geoserver download and run with app-schema to test gwml2 sql and workspace
 cleanFiles <+= baseDirectory { base => base / "temp" }
@@ -89,7 +89,18 @@ compile in Compile <<= (compile in Compile).dependsOn(geoserverDownloadZip)
 
 containerArgs := Seq("--path", "/geoserver")
 
+//postgisng_gwml2 ? check app-schema.properties
 javaOptions in Jetty += "-DdbUrl=jdbc:postgresql://127.0.0.1/appschemadev"
 
 sourceDirectory in webappPrepare := (baseDirectory in Compile).value / "temp/webapp"
 
+// -----------------
+// publish docs on github
+// new sbt-site 1.0.0 config incompatible with activator sbt-site bundle 0.8.1
+includeFilter in makeSite := "*.txt" | "*.html" | "*.md" | "*.css" | "*.js" | "*.png" | "*.jpg" | "*.gif" | "*.sql" | "*.xml"
+
+previewLaunchBrowser := false
+
+ghpages.settings
+
+git.remoteRepo := "git@github.com:allixender/gwml2-geoappschema-sql"
