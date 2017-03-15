@@ -23,7 +23,7 @@ before_script:
 - psql -c 'create database appschemadev;' -U postgres
 - psql -U postgres -c "create extension postgis"
 script:
-- sbt compile
+- sbt compile webappPrepare
 - sbt jetty:start && sleep 10
 - sbt test
 - sbt jetty:stop
