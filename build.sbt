@@ -8,6 +8,7 @@ val ScalaCheck      = "1.12.5"
 val ScalaTest       = "2.2.6"
 
 // val geotoolsVersion = "13.1" // 13.6, 14.5, 15.4, 16.2
+val geoserverVersion = "2.10.2"
 
 libraryDependencies ++= Seq(
   "com.vividsolutions" % "jts" % "1.13",
@@ -52,18 +53,33 @@ javacOptions in Compile ++= Seq(
 )
 
 // custom geoserver download and run with app-schema to test gwml2 sql and workspace
-lazy val downloadFromZip = taskKey[Unit]("Download the sbt zip and extract it to ./temp")
+cleanFiles <+= baseDirectory { base => base / "temp" }
 
+lazy val geoserverDownloadZip = taskKey[Unit]("Download the geoserver zip and extract it to ./temp")
 
-downloadFromZip := {
-  if(java.nio.file.Files.notExists(new File("temp").toPath())) {
+geoserverDownloadZip := {
+  if(java.nio.file.Files.notExists(new File("temp/geoserver.war").toPath())) {
     println("Path does not exist, downloading...")
-    IO.unzipURL(new URL("http://sourceforge.net/projects/geoserver/files/GeoServer/2.10.2/geoserver-2.10.2-war.zip"), new File("temp"))
+    IO.unzipURL(new URL(s"https://sourceforge.net/projects/geoserver/files/GeoServer/$geoserverVersion/geoserver-$geoserverVersion-war.zip/download"), new File("temp"))
+
   } else {
-    println("Path exists, no need to download.")
+    println(s"Geoserver WAR exists, no need to download.")
+  }
+  if(java.nio.file.Files.notExists(new File("temp/webapp").toPath())) {
+    IO.move(new File("temp/geoserver.war"), new File("temp/geoserver.zip"))
+    IO.unzip(new File("temp/geoserver.zip"), new File("temp/webapp"))
+  } else {
+    println(s"Geoserver webapp folder exists, no need to extract WAR.")
+  }
+  if(java.nio.file.Files.notExists(new File(s"temp/app-schema-plugin.zip").toPath())) {
+    IO.download(new URL(s"https://sourceforge.net/projects/geoserver/files/GeoServer/$geoserverVersion/extensions/geoserver-$geoserverVersion-app-schema-plugin.zip"),
+      new File("temp/app-schema-plugin.zip"))
+    IO.unzip(new File("temp/app-schema-plugin.zip"), new File("temp/webapp/WEB-INF/lib"))
+  } else {
+    println("AppSchema plugin exists, no need to download.")
   }
 }
 
-compile in Test <<= (compile in Test).dependsOn(downloadFromZip)
+compile in Test <<= (compile in Test).dependsOn(geoserverDownloadZip)
 
 
