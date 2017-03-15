@@ -100,7 +100,7 @@ object SchemaLoader extends LazyLogging {
     * @param dict
     * @return
     */
-  def getTermsFromDictionary(dict: NodeSeq) : Seq[String] = {
+  def getTermsFromDictionary(dict: NodeSeq): Seq[String] = {
     val headelem = (dict \\ "Dictionary").head
     val entries = (headelem \ "dictionaryEntry" \ "Definition" \ "name").map(e => e.text)
     entries
@@ -110,17 +110,25 @@ object SchemaLoader extends LazyLogging {
     * @param xml
     * @return
     */
-  def getDictionary(xml: NodeSeq) : GmlDictionary = {
+  def getDictionary(xml: NodeSeq): GmlDictionary = {
     val headelem = (xml \\ "Dictionary").head
     val gmlId = extractPrefixedAtrrib(headelem.attributes, "gml:id")
-    val identifier = (headelem \ "identifier").headOption.map{
+    val identifier = (headelem \ "identifier").headOption.map {
       elem =>
         if (elem.text.nonEmpty) Some(elem.text) else None
     }.getOrElse(None)
     val codespace = (headelem \ "identifier").headOption.map(x => extractAttrib(x.attributes, "codespace")).getOrElse(None)
     val name = (headelem \ "name").text
     val entries = (headelem \ "dictionaryEntry").map(getEntry(_))
-    GmlDictionary(gmlId, identifier,codespace,name,entries)
+    GmlDictionary(gmlId, identifier, codespace, name, entries)
+  }
+
+  /**
+    *
+    * @return
+    */
+  def getAllDictionaries: Seq[GmlDictionary] = {
+    termList.map(xmlDict => getDictionary(xmlDict))
   }
 
   /**
@@ -128,43 +136,102 @@ object SchemaLoader extends LazyLogging {
     * @param xml
     * @return
     */
-  def getEntry(xml: NodeSeq) : GmlDictionaryEntry = {
-    val gmlId = (xml \\ "Definition" ).headOption.map {
+  def findSchemaNamespace(xml: NodeSeq): Seq[NamespaceBinding] = {
+    val headelem = (xml \\ "schema").head
+
+    val nsSeqPrefixed = headelem.map {
+      node =>
+        node.attributes.map {
+          meta =>
+            val pk = meta.prefixedKey
+            val pv = meta.get(pk).map(x => x.text).getOrElse("")
+            logger.debug(s"pk: $pk  , pv: $pv")
+            Some(NamespaceBinding(pk.replace("xmlns:",""), pv, null))
+        }
+    }
+
+    val nsSeq = headelem.flatMap {
+      node =>
+        node.attributes.flatMap {
+          meta =>
+            meta.asAttrMap
+        }
+    }.flatMap {
+      case ("version", v) => {
+        logger.debug(s"version: $v")
+        None
+      }
+      case ("attributeFormDefault", v) => {
+        logger.debug(s"attributeFormDefault: $v")
+        None
+      }
+      case ("elementFormDefault", v) => {
+        logger.debug(s"elementFormDefault: $v")
+        None
+      }
+      case ("targetNamespace", v) => {
+        logger.debug(s"targetNamespace: $v")
+        Some(NamespaceBinding("targetNamespace", v, null))
+      }
+      case _ => None
+    }
+    nsSeq.distinct
+  }
+
+  /**
+    *
+    * @return
+    */
+  def findAllSchemaNamespaces: Seq[NamespaceBinding] = {
+    val nsSeq = schemaList.flatMap(xsd => findSchemaNamespace(xsd)).distinct
+    nsSeq.foreach(ns => logger.info(s"key: ${ns.prefix} , value: ${ns.uri}"))
+    nsSeq
+  }
+
+  def findAllTypes = ???
+
+
+  /**
+    *
+    * @param xml
+    * @return
+    */
+  def getEntry(xml: NodeSeq): GmlDictionaryEntry = {
+    val gmlId = (xml \\ "Definition").headOption.map {
       elem =>
         extractPrefixedAtrrib(elem.attributes, "gml:id")
     }.headOption.getOrElse("")
 
-    val description: Option[String] = (xml \ "description").headOption.map{
+    val description: Option[String] = (xml \ "description").headOption.map {
       x => if (x.text.nonEmpty) Some(x.text) else None
     }.getOrElse(None)
     val identifier = (xml \\ "Definition" \ "identifier").text
     val codespace = (xml \\ "Definition" \ "identifier").headOption.map(x => extractAttrib(x.attributes, "codespace")).getOrElse(None)
     val name = (xml \\ "Definition" \ "identifier").text
-    GmlDictionaryEntry(gmlId,description,identifier,codespace,name)
+    GmlDictionaryEntry(gmlId, description, identifier, codespace, name)
   }
 
-    /**
-      *
-      * @param attrs
-      * @param prefixedLabel
-      * @return
-      */
-    def extractPrefixedAtrrib(attrs: Iterable[MetaData], prefixedLabel: String): String = {
-      val attOpt = attrs.find(meta => meta.prefixedKey.equalsIgnoreCase(prefixedLabel))
-      attOpt.map(meta => meta.value.text).getOrElse("")
-    }
+  /**
+    *
+    * @param attrs
+    * @param prefixedLabel
+    * @return
+    */
+  def extractPrefixedAtrrib(attrs: Iterable[MetaData], prefixedLabel: String): String = {
+    val attOpt = attrs.find(meta => meta.prefixedKey.equalsIgnoreCase(prefixedLabel))
+    attOpt.map(meta => meta.value.text).getOrElse("")
+  }
 
-    /**
-      *
-      * @param attrs
-      * @param label
-      * @return
-      */
-    def extractAttrib(attrs: Iterable[MetaData], label: String): Option[String] = {
-      val attOpt = attrs.find(meta => meta.key.equalsIgnoreCase(label))
-      val text = attOpt.map(meta => meta.value.text).getOrElse("")
-      if (text.nonEmpty) Some(text) else None
-    }
-
+  /**
+    *
+    * @param attrs
+    * @param label
+    * @return
+    */
+  def extractAttrib(attrs: Iterable[MetaData], label: String): Option[String] = {
+    val attOpt = attrs.find(meta => meta.key.equalsIgnoreCase(label))
+    val text = attOpt.map(meta => meta.value.text).getOrElse("")
+    if (text.nonEmpty) Some(text) else None
+  }
 
 }

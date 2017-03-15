@@ -1,4 +1,10 @@
 
+name := "gwml2-geoappachema-sql"
+
+organization := "io.allixender"
+
+licenses += ("Apache-2.0", url("https://opensource.org/licenses/Apache-2.0"))
+
 scalaVersion := "2.11.8"
 
 version := "1.0-SNAPSHOT"
@@ -6,7 +12,6 @@ version := "1.0-SNAPSHOT"
 val postgresDriver = "9.4.1211.jre7"
 val ScalaCheck      = "1.12.5"
 val ScalaTest       = "2.2.6"
-val Slf4j           = "1.7.21"
 
 // val geotoolsVersion = "13.1" // 13.6, 14.5, 15.4, 16.2
 val geoserverVersion = "2.10.2"
