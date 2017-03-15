@@ -15,7 +15,6 @@ buildNumber.properties
 .project
 .classpath
 .settings
-.history
 gen
 **/*.swp
 **/*~.nib
@@ -25,25 +24,15 @@ gen
 **/*.perspectivev3
 *.xcworkspace
 *.xcuserdatad
-**/target
-target
-*.iml
 project/*.ipr
 project/*.iml
 project/*.iws
 project/out
-project/*/target
-project/target
 project/*/bin
 project/*/build
-project/*.iml
 project/*/*.iml
 project/.idea
 project/.idea/*
-.idea
-.idea/*
-.idea/**/*
-.DS_Store
 project/.DS_Store
 project/*/.DS_Store
 tm.out
@@ -63,3 +52,5 @@ akka-patterns-store/
 /bin/
 derby.log
 
+temp/
+project/project/

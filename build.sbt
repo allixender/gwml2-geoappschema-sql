@@ -51,3 +51,19 @@ javacOptions in Compile ++= Seq(
   "-Xlint:unchecked"
 )
 
+// custom geoserver download and run with app-schema to test gwml2 sql and workspace
+lazy val downloadFromZip = taskKey[Unit]("Download the sbt zip and extract it to ./temp")
+
+
+downloadFromZip := {
+  if(java.nio.file.Files.notExists(new File("temp").toPath())) {
+    println("Path does not exist, downloading...")
+    IO.unzipURL(new URL("http://sourceforge.net/projects/geoserver/files/GeoServer/2.10.2/geoserver-2.10.2-war.zip"), new File("temp"))
+  } else {
+    println("Path exists, no need to download.")
+  }
+}
+
+compile in Test <<= (compile in Test).dependsOn(downloadFromZip)
+
+

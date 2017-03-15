@@ -14,6 +14,8 @@ addSbtPlugin("org.typelevel" % "sbt-typelevel" % "0.3.1")
 
 addSbtPlugin("com.scalapenos" % "sbt-prompt" % "1.0.0")
 
+addSbtPlugin("com.earldouglas" % "xsbt-web-plugin" % "3.0.0")
+
 //addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
 
 //addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.4")
