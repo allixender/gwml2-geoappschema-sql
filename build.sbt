@@ -83,3 +83,12 @@ geoserverDownloadZip := {
 compile in Test <<= (compile in Test).dependsOn(geoserverDownloadZip)
 
 
+enablePlugins(WebappPlugin)
+enablePlugins(JettyPlugin)
+
+containerArgs := Seq("--path", "/geoserver")
+
+// javaOptions in Jetty += "-DdbUrl=jdbc:postgresql://127.0.0.1/appschemadev"
+
+sourceDirectory in webappPrepare := (baseDirectory in Compile).value / "temp/webapp"
+
