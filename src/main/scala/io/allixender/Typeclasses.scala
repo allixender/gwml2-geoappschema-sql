@@ -2,7 +2,7 @@ package io.allixender
 
 import com.typesafe.scalalogging.LazyLogging
 
-import scala.xml.{NamespaceBinding}
+import scala.xml.NamespaceBinding
 
 object TypeClasses extends LazyLogging {
 
@@ -56,18 +56,18 @@ case class GmlDictionaryEntry(
   * @param simplePropertyTypes
   * @param instanceElements
   */
-case class Schema (
-                  name: String,
-                  version: String,
-                  targetNamespace: NamespaceBinding,
-                  annotation: Option[String],
-                  nsImports: Seq[NamespaceBinding],
-                  complexTypes: Seq[ComplexType],
-                  complexPropertyTypes: Seq[ComplexPropertyType],
-                  simpleTypes: Seq[SimpleType],
-                  simplePropertyTypes: Seq[SimplePropertyType],
-                  instanceElements: Seq[Element]
-                  )
+case class Schema(
+                   name: String,
+                   version: String,
+                   targetNamespace: NamespaceBinding,
+                   annotation: Option[String],
+                   nsImports: Seq[NamespaceBinding],
+                   complexTypes: Seq[ComplexType],
+                   complexPropertyTypes: Seq[ComplexPropertyType],
+                   simpleTypes: Seq[SimpleType],
+                   simplePropertyTypes: Seq[SimplePropertyType],
+                   instanceElements: Seq[Element]
+                 )
 
 /**
   *
@@ -78,12 +78,12 @@ case class Schema (
   * @param elements
   */
 case class ComplexType(
-                      name: String,
-                      ns: NamespaceBinding,
-                      isAbstract: Option[Boolean],
-                      extensionBase: Option[String],
-                      elements: Seq[Element],
-                      complexAttribute: Option[ComplexAttribute]
+                        name: String,
+                        ns: NamespaceBinding,
+                        isAbstract: Option[Boolean],
+                        extensionBase: Option[String],
+                        elements: Seq[Element],
+                        complexAttribute: Option[ComplexAttribute]
                       )
 
 /**
@@ -93,13 +93,13 @@ case class ComplexType(
   * @param minOccurs
   * @param attributeGroupRef "gml:AssociationAttributeGroup" or "gml:OwnershipAttributeGroup"
   */
-case class ComplexPropertyType (
-                               name: String,
-                               elementRef: String,
-                               minOccurs: Option[Int],
-                               attributeGroupRef: Option[String],
-                               complexAttribute: Option[ComplexAttribute]
-                               )
+case class ComplexPropertyType(
+                                name: String,
+                                elementRef: String,
+                                minOccurs: Option[Int],
+                                attributeGroupRef: Option[String],
+                                complexAttribute: Option[ComplexAttribute]
+                              )
 
 /**
   *
@@ -120,14 +120,14 @@ case class SimpleType(
   * @param name
   * @param attributeType
   */
-case class ComplexAttribute (
-                            name: String,
-                            attributeType: String
-                            )
+case class ComplexAttribute(
+                             name: String,
+                             attributeType: String
+                           )
 
-case class SimplePropertyType (
+case class SimplePropertyType(
 
-                              )
+                             )
 
 /**
   *
@@ -152,7 +152,7 @@ case class Element(
                     complexPropertyType: ComplexPropertyType
                   )
 
-case class QTypeName (
+case class QTypeName(
                       label: String,
                       ns: NamespaceBinding
                     )

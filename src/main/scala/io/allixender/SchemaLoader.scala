@@ -6,56 +6,23 @@ import scala.xml._
 
 object SchemaLoader extends LazyLogging {
 
-  // geoserver stuff
-  lazy val AppSchemaDataAccess = XML.load(getClass.getResource("/AppSchemaDataAccess.xsd"))
-  lazy val AppSchemaProperties = XML.load(getClass.getResource("/app-schema.properties"))
-
-  // lazy val gwml2 = XML.load(getClass.getResource("gwml2.xsd"))
-  lazy val MainSchema = XML.load(getClass.getResource("/gwml2-main.xsd"))
-  lazy val FlowSchema = XML.load(getClass.getResource("/gwml2-flow.xsd"))
-  lazy val ConstituentSchema = XML.load(getClass.getResource("/gwml2-constituent.xsd"))
-  lazy val WellSchema = XML.load(getClass.getResource("/gwml2-well.xsd"))
-  lazy val WellConstructionSchema = XML.load(getClass.getResource("/gwml2-wellconstruction.xsd"))
-  lazy val AquifertestSchema = XML.load(getClass.getResource("/gwml2-aquifertest.xsd"))
-
-  // controlled terms
-  lazy val AquiferTypeTerm = XML.load(getClass.getResource("/AquiferTypeTerm.xml"))
-  lazy val bholeInclinationTypeTerm = XML.load(getClass.getResource("/bholeInclinationTypeTerm.xml"))
-  lazy val bholeStartPointTypeTerm = XML.load(getClass.getResource("/bholeStartPointTypeTerm.xml"))
-  lazy val BodyQualityTerm = XML.load(getClass.getResource("/BodyQualityTerm.xml"))
-  lazy val ChemicalTypeTerm = XML.load(getClass.getResource("/ChemicalTypeTerm.xml"))
-  lazy val ConductivityConfinementTypeTerm = XML.load(getClass.getResource("/ConductivityConfinementTypeTerm.xml"))
-  lazy val ConstituentRelationMechanismTypeTerm = XML.load(getClass.getResource("/ConstituentRelationMechanismTypeTerm.xml"))
-  lazy val ConstituentRelationTypeTerm = XML.load(getClass.getResource("/ConstituentRelationTypeTerm.xml"))
-  lazy val ElevationTypeTerm = XML.load(getClass.getResource("/ElevationTypeTerm.xml"))
-  lazy val EnvironmentalDomainTypeTerm = XML.load(getClass.getResource("/EnvironmentalDomainTypeTerm.xml"))
-  lazy val FlowPersistenceTypeTerm = XML.load(getClass.getResource("/FlowPersistenceTypeTerm.xml"))
-  lazy val HeadworkTypeTerm = XML.load(getClass.getResource("/HeadworkTypeTerm.xml"))
-  lazy val MixtureTypeTerm = XML.load(getClass.getResource("/MixtureTypeTerm.xml"))
-  lazy val OrganismTypeTerm = XML.load(getClass.getResource("/OrganismTypeTerm.xml"))
-  lazy val PorosityTypeTerm = XML.load(getClass.getResource("/PorosityTypeTerm.xml"))
-  lazy val SiteTypeTerm = XML.load(getClass.getResource("/SiteTypeTerm.xml"))
-  lazy val SpatialConfinementTypeTerm = XML.load(getClass.getResource("/SpatialConfinementTypeTerm.xml"))
-  lazy val SpecialisedZoneAreaTypeTerm = XML.load(getClass.getResource("/SpecialisedZoneAreaTypeTerm.xml"))
-  lazy val SpringCauseTypeTerm = XML.load(getClass.getResource("/SpringCauseTypeTerm.xml"))
-  lazy val SpringConstructionTypeTerm = XML.load(getClass.getResource("/SpringConstructionTypeTerm.xml"))
-  lazy val SpringPersistenceTerm = XML.load(getClass.getResource("/SpringPersistenceTerm.xml"))
-  lazy val SpringTypeTerm = XML.load(getClass.getResource("/SpringTypeTerm.xml"))
-  lazy val StateTypeTerm = XML.load(getClass.getResource("/StateTypeTerm.xml"))
-  lazy val SurfaceTypeTerm = XML.load(getClass.getResource("/SurfaceTypeTerm.xml"))
-  lazy val WaterFlowProcessTerm = XML.load(getClass.getResource("/WaterFlowProcessTerm.xml"))
-  lazy val WaterWellUseTypeTerm = XML.load(getClass.getResource("/WaterWellUseTypeTerm.xml"))
-  lazy val WellPurposeTerm = XML.load(getClass.getResource("/WellPurposeTerm.xml"))
-  lazy val WellStatusTypeTerm = XML.load(getClass.getResource("/WellStatusTypeTerm.xml"))
+  /**
+    *
+    * @param dict
+    * @return
+    */
+  def getTermsFromDictionary(dict: NodeSeq): Seq[String] = {
+    val headelem = (dict \\ "Dictionary").head
+    val entries = (headelem \ "dictionaryEntry" \ "Definition" \ "name").map(e => e.text)
+    entries
+  }
 
   /**
     *
     * @return
     */
-  def schemaList: Seq[NodeSeq] = {
-    Seq(
-      MainSchema, FlowSchema, ConstituentSchema, WellSchema, WellConstructionSchema, AquifertestSchema
-    )
+  def getAllDictionaries: Seq[GmlDictionary] = {
+    termList.map(xmlDict => getDictionary(xmlDict))
   }
 
   /**
@@ -96,17 +63,6 @@ object SchemaLoader extends LazyLogging {
   }
 
   /**
-    *
-    * @param dict
-    * @return
-    */
-  def getTermsFromDictionary(dict: NodeSeq): Seq[String] = {
-    val headelem = (dict \\ "Dictionary").head
-    val entries = (headelem \ "dictionaryEntry" \ "Definition" \ "name").map(e => e.text)
-    entries
-  }
-
-  /**
     * @param xml
     * @return
     */
@@ -122,74 +78,6 @@ object SchemaLoader extends LazyLogging {
     val entries = (headelem \ "dictionaryEntry").map(getEntry(_))
     GmlDictionary(gmlId, identifier, codespace, name, entries)
   }
-
-  /**
-    *
-    * @return
-    */
-  def getAllDictionaries: Seq[GmlDictionary] = {
-    termList.map(xmlDict => getDictionary(xmlDict))
-  }
-
-  /**
-    *
-    * @param xml
-    * @return
-    */
-  def findSchemaNamespace(xml: NodeSeq): Seq[NamespaceBinding] = {
-    val headelem = (xml \\ "schema").head
-
-    val nsSeqPrefixed = headelem.map {
-      node =>
-        node.attributes.map {
-          meta =>
-            val pk = meta.prefixedKey
-            val pv = meta.get(pk).map(x => x.text).getOrElse("")
-            logger.debug(s"pk: $pk  , pv: $pv")
-            Some(NamespaceBinding(pk.replace("xmlns:",""), pv, null))
-        }
-    }
-
-    val nsSeq = headelem.flatMap {
-      node =>
-        node.attributes.flatMap {
-          meta =>
-            meta.asAttrMap
-        }
-    }.flatMap {
-      case ("version", v) => {
-        logger.debug(s"version: $v")
-        None
-      }
-      case ("attributeFormDefault", v) => {
-        logger.debug(s"attributeFormDefault: $v")
-        None
-      }
-      case ("elementFormDefault", v) => {
-        logger.debug(s"elementFormDefault: $v")
-        None
-      }
-      case ("targetNamespace", v) => {
-        logger.debug(s"targetNamespace: $v")
-        Some(NamespaceBinding("targetNamespace", v, null))
-      }
-      case _ => None
-    }
-    nsSeq.distinct
-  }
-
-  /**
-    *
-    * @return
-    */
-  def findAllSchemaNamespaces: Seq[NamespaceBinding] = {
-    val nsSeq = schemaList.flatMap(xsd => findSchemaNamespace(xsd)).distinct
-    nsSeq.foreach(ns => logger.info(s"key: ${ns.prefix} , value: ${ns.uri}"))
-    nsSeq
-  }
-
-  def findAllTypes = ???
-
 
   /**
     *
@@ -224,6 +112,60 @@ object SchemaLoader extends LazyLogging {
 
   /**
     *
+    * @return
+    */
+  def getAllSchemaAttributes: Seq[NamespaceBinding] = {
+    schemaList.flatMap(xsd => getSchemaAttributes(xsd)).distinct
+  }
+
+  /**
+    *
+    * @return
+    */
+  def getAllImportedNamespaces: Seq[NamespaceBinding] = {
+    schemaList.flatMap(xsd => getImportedNamespaces(xsd)).distinct
+  }
+
+  /**
+    *
+    * @return
+    */
+  def schemaList: Seq[NodeSeq] = {
+    Seq(
+      MainSchema, FlowSchema, ConstituentSchema, WellSchema, WellConstructionSchema, AquifertestSchema
+    )
+  }
+
+  def namespacesList: Seq[NamespaceBinding] = {
+    Seq(
+      nsGco2005, nsGmd2005, nsGml32, nsGsml40,
+      nsGwml2, nsGwml2f, nsGwml2c, nsGwml2w, nsGwml2wc, nsGwml2at,
+      nsOm20, nsSwe20, nsSams
+    )
+  }
+
+  /**
+    *
+    * @param xml
+    * @return
+    */
+  def getImportedNamespaces(xml: NodeSeq): Seq[NamespaceBinding] = {
+    (xml \\ "schema" \ "import").map {
+      node =>
+        val link = extractAttrib(node.attributes, "namespace")
+        logger.trace(s"link before: $link")
+        if (link.isDefined) {
+          val targetPrefix = getPrefixForUri(link)
+          logger.debug(s"ns: ${targetPrefix.get}, ${link.get}, null")
+          Some(NamespaceBinding(targetPrefix.getOrElse(null), link.get, null))
+        } else {
+          None
+        }
+    }.filter(_.isDefined).map(_.get)
+  }
+
+  /**
+    *
     * @param attrs
     * @param label
     * @return
@@ -233,5 +175,56 @@ object SchemaLoader extends LazyLogging {
     val text = attOpt.map(meta => meta.value.text).getOrElse("")
     if (text.nonEmpty) Some(text) else None
   }
+
+  /**
+    *
+    * @param xml
+    * @return
+    */
+  def getSchemaAttributes(xml: NodeSeq): Seq[NamespaceBinding] = {
+    val headelem = (xml \\ "schema").head
+
+    val nsSeq = headelem.flatMap {
+      node =>
+        node.attributes.flatMap {
+          meta =>
+            meta.asAttrMap
+        }
+    }.flatMap {
+      case ("version", v) => {
+        logger.trace(s"version: $v")
+        None
+      }
+      case ("attributeFormDefault", v) => {
+        logger.trace(s"attributeFormDefault: $v")
+        None
+      }
+      case ("elementFormDefault", v) => {
+        logger.trace(s"elementFormDefault: $v")
+        None
+      }
+      case ("targetNamespace", v) => {
+        logger.trace(s"targetNamespace: $v")
+        Some(NamespaceBinding(getPrefixForUri(Some(v)).getOrElse("targetNamespace"), v, null))
+      }
+      case _ => None
+    }
+    nsSeq.distinct
+  }
+
+  /**
+    *
+    * @param uri
+    * @return
+    */
+  def getPrefixForUri(uri: Option[String]): Option[String] = {
+    if (uri.isDefined) {
+      namespacesList.find(_.uri == uri.get).map(_.prefix)
+    } else {
+      None
+    }
+  }
+
+  def findAllTypes = ???
 
 }
